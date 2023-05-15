@@ -1,0 +1,52 @@
+.spinner {
+  animation: spin 1.5s linear infinite;
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 100px auto 0;
+  border: 4px solid #1f94ed;
+  border-radius: 50%;
+}
+.spinner:after {
+  content: "";
+  width: 85%;
+  height: 85%;
+  background: -webkit-linear-gradient(
+    45deg,
+    white 0%,
+    white 40%,
+    rgba(255, 255, 255, 0.7) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-5%, -5%);
+}
+.spinner.moon {
+  border-left: 0;
+  border-top: 0;
+}
+.spinner.moon:after {
+  display: none;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* actions css */
+
+/* li>ul                 { transform: translatex(100%) scale(0) }
+li:hover>ul           { transform: translatex(101%) scale(1) }
+li > button svg       { transform: rotate(-90deg) }
+li:hover > button svg { transform: rotate(-270deg) }
+
+.group:hover .group-hover\:scale-100 { transform: scale(1) }
+.group:hover .group-hover\:-rotate-180 { transform: rotate(180deg) }
+.scale-0 { transform: scale(0) }
+.min-w-32 { min-width: 8rem } */

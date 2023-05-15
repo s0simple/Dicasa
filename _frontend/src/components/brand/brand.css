@@ -1,0 +1,25 @@
+.box {
+  width: 60px;
+  height: 60px;
+  background: #4285f4;
+  border-radius: 20px;
+  animation: box 7s ease-in-out infinite;
+}
+
+@keyframes box {
+  from,
+  to {
+    transform: translateX(-50px) rotateX(0deg);
+  }
+  25% {
+    background: #db4437;
+  }
+
+  50% {
+    backgroud: #f4b400;
+    transform: translateX(50px) rotate(360deg);
+  }
+  75% {
+    background: #0f9d58;
+  }
+}
