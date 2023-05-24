@@ -13,18 +13,18 @@ function Dashboard() {
 
         {/* sidebar column */}
         {/* right column */}
-        <div className="w-5/6 max-w-full overflow-y-auto ">
+        <div className="w-5/6 max-w-full overflow-y-auto z-20 ">
           {/* right wrap */}
-          <div className="flex flex-col">
+          <div className="flex flex-col sticky top-0 z-50 ">
             {/* right nav */}
             <Nav />
+          </div>
 
-            {/* right body */}
-            <div className="mt-10 px-5">
-              <div className="">
-                {/* everything goes here */}
-                <Outlet />
-              </div>
+          {/* right body */}
+          <div className="mt-10 px-5 ">
+            <div className="">
+              {/* everything goes here */}
+              <Outlet />
             </div>
           </div>
         </div>

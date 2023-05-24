@@ -3,13 +3,87 @@ import axios from "axios";
 import Cardlist from "./Cardlist";
 import Searchform from "./Searchform";
 import Dropdown from "../../components/dropdown/Dropdown";
+import Droplist from "../../components/dropdown/Droplist";
+
+const people = [
+  { name: "Wade Cooper" },
+  { name: "Arlene McCoy" },
+  { name: "Devon Webb" },
+  { name: "Tom Cook" },
+  { name: "Tanya Fox" },
+  { name: "Hellen Schmidt" },
+];
+const bedrooms = [
+  { name: "1 bedroom" },
+  { name: "2 bedrooms" },
+  { name: "3 bedrooms" },
+  { name: "4 bedrooms" },
+  { name: "5 bedrooms" },
+  { name: "6 bedrooms" },
+];
+const category = [
+  { name: "All" },
+  { name: "Apartment" },
+  { name: "Shared compound" },
+  { name: "Self compound" },
+  { name: "Office space" },
+  { name: "Hotel" },
+  { name: "guest house" },
+];
+const offers = [{ name: "All types" }, { name: "Rent" }, { name: "Buy" }];
 
 const Mainpage = () => {
+  const [selectOffer, setselectOffer] = useState(offers[0]);
+  const [selectcategory, setselectcategory] = useState(category[0]);
+  const [selectbedroom, setselectbedroom] = useState(bedrooms[0]);
+  const [selectpeople, setselectpeople] = useState(people[0]);
+
   return (
     <div className="flex gap-x-5">
       <div className="w-1/4">
         <div className="shadow rounded-lg mb-10 px-4 bg-white w-full p-4">
-          <Dropdown />
+          <p className="font-bold text-lg ">Filter</p>{" "}
+          <div className="mt-8">
+            Offers:
+            <Droplist
+              people={offers}
+              selected={selectOffer}
+              setSelected={setselectOffer}
+            />
+          </div>
+          <div className="mt-8">
+            Category:
+            <Droplist
+              people={category}
+              selected={selectcategory}
+              setSelected={setselectcategory}
+            />
+          </div>
+          <div className="mt-8">
+            Bedroom:
+            <Droplist
+              people={bedrooms}
+              selected={selectbedroom}
+              setSelected={setselectbedroom}
+            />
+          </div>
+          <div className="mt-8">
+            People:
+            <Droplist
+              people={people}
+              selected={selectpeople}
+              setSelected={setselectpeople}
+            />
+          </div>
+          <div className="flex justify-end">
+            {" "}
+            <button
+              type=""
+              class="w-full mt-8  h-10 bg-gray-800 text-white rounded-md px-4 py-1 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+            >
+              Search
+            </button>
+          </div>
         </div>
       </div>
 

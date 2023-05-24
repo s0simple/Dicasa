@@ -19,8 +19,8 @@ function Nav() {
   };
 
   return (
-    <div className="w-full sticky top-0 flex bg-white shadow justify-between items-center  px-4  h-16  ">
-      <div className="bg-white rounded flex items-center w-full max-w-xl mr-4 p-2 shadow-sm border border-gray-200">
+    <div className="  w-full sticky top-0 flex bg-white shadow justify-between items-center  px-4  h-16  ">
+      <div className="bg-white  flex items-center w-full max-w-xl mr-4 p-2 shadow-sm border border-gray-200">
         <button className="outline-none focus:outline-none">
           <svg
             className="w-5 text-gray-600 h-5 cursor-pointer"
