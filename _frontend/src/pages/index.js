@@ -16,3 +16,4 @@ export { default as Settings } from "./settings/Settings";
 export { default as Charts } from "./charts/Charts";
 export { default as Listings } from "./listings/Listings";
 export { default as Mainpage } from "./mainPage/Mainpage";
+export { default as SinglePage } from "./SinglePage/SinglePage";

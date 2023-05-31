@@ -1,5 +1,12 @@
 import React, { createContext, useState } from "react";
-import { Onestep, Twostep, Threestep, FourStep } from "../../Multiforms/forms";
+import {
+  Onestep,
+  Twostep,
+  Threestep,
+  FourStep,
+  PreviewStep,
+  SuccessStep,
+} from "../../Multiforms/forms";
 import axios from "axios";
 import { v4 as uuid } from "uuid";
 
@@ -43,6 +50,17 @@ function Payload() {
     <FourStep
       next={() => next}
       prev={() => prev}
+      setstep={() => setstep}
+      handleChange={(e) => handleChange(e)}
+    />,
+    // <PreviewStep
+    //   next={() => next}
+    //   prev={() => prev}
+    //   handleChange={(e) => handleChange(e)}
+    // />,
+    <SuccessStep
+      next={() => next2}
+      prev={() => prev}
       handleChange={(e) => handleChange(e)}
     />,
   ];
@@ -56,6 +74,8 @@ function Payload() {
       return steps[2];
     } else if (step === 4) {
       return steps[3];
+    } else if (step === 5) {
+      return steps[4];
     } else {
       console.log("nothing");
     }
@@ -72,6 +92,16 @@ function Payload() {
     if (step < count) {
       return setstep((current) => current + 1);
     } else setstep((current) => current);
+
+    console.log(step);
+  };
+  const next2 = () => {
+    // const count = steps.length;
+    // // console.log(propInput);
+    // if (step < count) {
+    //   return setstep((current) => current + 1);
+    // } else setstep((current) => current);
+    console.log(step);
   };
   const prev = () => {
     if (step > 1) {

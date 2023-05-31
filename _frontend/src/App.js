@@ -17,6 +17,7 @@ import {
   Listings,
   Trylog,
   Mainpage,
+  SinglePage,
 } from "./pages";
 import { NewProduct } from "./operations/";
 import "./App.css";
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="listings" element={<Listings />} />
           <Route path="newproduct" element={<NewProduct />} />
           <Route path="mainpage" element={<Mainpage />} />
+          <Route path="singlepage" element={<SinglePage />} />
         </Route>
 
         <Route path="/login" element={<Login />} />

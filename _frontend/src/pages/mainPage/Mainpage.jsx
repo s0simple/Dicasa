@@ -4,33 +4,12 @@ import Cardlist from "./Cardlist";
 import Searchform from "./Searchform";
 import Dropdown from "../../components/dropdown/Dropdown";
 import Droplist from "../../components/dropdown/Droplist";
-
-const people = [
-  { name: "Wade Cooper" },
-  { name: "Arlene McCoy" },
-  { name: "Devon Webb" },
-  { name: "Tom Cook" },
-  { name: "Tanya Fox" },
-  { name: "Hellen Schmidt" },
-];
-const bedrooms = [
-  { name: "1 bedroom" },
-  { name: "2 bedrooms" },
-  { name: "3 bedrooms" },
-  { name: "4 bedrooms" },
-  { name: "5 bedrooms" },
-  { name: "6 bedrooms" },
-];
-const category = [
-  { name: "All" },
-  { name: "Apartment" },
-  { name: "Shared compound" },
-  { name: "Self compound" },
-  { name: "Office space" },
-  { name: "Hotel" },
-  { name: "guest house" },
-];
-const offers = [{ name: "All types" }, { name: "Rent" }, { name: "Buy" }];
+import {
+  people,
+  bedrooms,
+  category,
+  offers,
+} from "../../components/dropdown/droparrays";
 
 const Mainpage = () => {
   const [selectOffer, setselectOffer] = useState(offers[0]);
@@ -38,6 +17,14 @@ const Mainpage = () => {
   const [selectbedroom, setselectbedroom] = useState(bedrooms[0]);
   const [selectpeople, setselectpeople] = useState(people[0]);
 
+  const filter = [
+    { Offer: selectOffer.name },
+    { category: selectcategory.name },
+    { bedroom: selectbedroom.name },
+    { people: selectpeople.name },
+  ];
+
+  console.log(filter);
   return (
     <div className="flex gap-x-5">
       <div className="w-1/4">
