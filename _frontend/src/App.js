@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Payload from "./views/payload/Payload";
+//import "react-id-swiper/lib/styles/css/swiper.css";
 import {
   Login,
   Register,

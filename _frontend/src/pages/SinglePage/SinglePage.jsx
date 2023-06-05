@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Gallery from "../../elements/Gallary";
+// import Slider1 from "../../elements/Slider1";
 
 const SinglePage = () => {
   const [fetchData, setfetchData] = useState([]);
@@ -28,12 +30,18 @@ const SinglePage = () => {
   // }, []);
 
   return (
-    <div>
-      <div className="bg-white shadow rounded-lg mb-10 p-4  ">
-        <div className="photoarea">photo here</div>
+    <div className="flex gap-5">
+      <div className=" w-4/6 shadow rounded-lg mb-10 p-4 bg-white">
+        <div className=" photoarea ">
+          <div className="w-full h-[500px] ">
+            <Gallery />
+          </div>
+        </div>
+        <div className="slider">{/* <Slider1 /> */}</div>
         <div className="description">description</div>
         <div className="action">action</div>
       </div>
+      <div className="w-2/6 shadow rounded-lg mb-10 p-4 bg-white"></div>
     </div>
   );
 };
