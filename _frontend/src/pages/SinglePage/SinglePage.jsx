@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Gallery from "../../elements/Gallary";
 // import Slider1 from "../../elements/Slider1";
+import SingleRight from "./SingleRight";
 
 const SinglePage = () => {
   const [fetchData, setfetchData] = useState([]);
@@ -33,7 +34,7 @@ const SinglePage = () => {
     <div className="flex gap-5">
       <div className=" w-4/6 shadow rounded-lg mb-10 p-4 bg-white">
         <div className=" photoarea ">
-          <div className="w-full h-[500px] ">
+          <div className="w-full h-full ">
             <Gallery />
           </div>
         </div>
@@ -41,7 +42,9 @@ const SinglePage = () => {
         <div className="description">description</div>
         <div className="action">action</div>
       </div>
-      <div className="w-2/6 shadow rounded-lg mb-10 p-4 bg-white"></div>
+      <div className="w-2/6 shadow rounded-lg mb-10 p-4 bg-white">
+        <SingleRight />
+      </div>
     </div>
   );
 };
