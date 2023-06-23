@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import "../form.css";
+import "../form.scss";
 import CurrencyInput from "react-currency-input-field";
 import { Mformcontext } from "../../views/payload/Payload";
 
@@ -20,8 +20,8 @@ function OneStep({ next, prev, handleChange }) {
     return setShowMonth(true);
   };
   return (
-    <div className="md:grid md:grid-cols-4 md:gap-6 mt-5">
-      <div className="md:col-span-1">
+    <div className="">
+      {/* <div className="md:col-span-1">
         <div className="px-4 sm:px-0">
           <h3 className="text-base font-semibold leading-6 text-gray-900">
             Terms
@@ -31,14 +31,14 @@ function OneStep({ next, prev, handleChange }) {
             share.
           </p>
         </div>
-      </div>
-      <div className="mt-5 md:col-span-3 md:mt-0 sm:rounded-md shadow bg-white">
+      </div> */}
+      <div className="md:mt-0 shadow sm:rounded-md bg-white p-5 mb-20">
         <form action="">
           <div className=" sm:overflow-hidden ">
-            <div className="space-y-6  px-4 py-5 sm:p-6">
+            <div className="">
               {/* tryyyyy */}
 
-              <ul className="grid grid-cols-3 gap-x-5 m-10 max-w-md mx-auto">
+              <ul className="flex flex-cols w-full   ">
                 <li className="relative">
                   <input
                     className="sr-only peer"
@@ -79,65 +79,66 @@ function OneStep({ next, prev, handleChange }) {
                     Rent
                   </label>
                 </li>
+              </ul>
+              <div className="mt-6">
+                <label
+                  htmlFor="company-website"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Price
+                </label>
 
-                <div className="col-span-3 sm:col-span-3 mt-10">
-                  <label
-                    htmlFor="company-website"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Price
-                  </label>
-
-                  <div className="mt-2  rounded-md shadow-sm">
-                    <div className="flex">
-                      <select
-                        name=""
-                        id=""
-                        className="text-center shadow-sm mt-2 h-12 inline-flex items-center rounded-l-md border border-r-0  px-3 text-gray-500 sm:text-sm"
+                <div className=" rounded-md shadow-sm">
+                  <div className="flex">
+                    <select
+                      name=""
+                      id=""
+                      className="text-center   ring-1 ring-inset ring-gray-300 shadow-sm mt-2 h-12 inline-flex items-center rounded-l-md border-0 border-r-0  px-3 text-gray-500 sm:text-sm"
+                    >
+                      <option
+                        onClick={() => setcurrencypref(true)}
+                        value="GHC"
+                        className="text-center"
                       >
-                        <option
-                          onClick={() => setcurrencypref(true)}
-                          value="GHC"
-                          className="text-center"
-                        >
-                          GHC
-                        </option>
-                        <option
-                          onClick={() => setcurrencypref(false)}
-                          value="USD"
-                        >
-                          USD
-                        </option>
-                      </select>
+                        GHC
+                      </option>
+                      <option
+                        onClick={() => setcurrencypref(false)}
+                        value="USD"
+                      >
+                        USD
+                      </option>
+                    </select>
 
-                      <div className="relative mt-2 rounded-md shadow-sm ">
-                        <input
-                          // prefix={currencypref ? "$" : "₵"}
-                          type="number"
-                          className="border px-5 py-4 rounded-r-md  h-12 "
-                          name="price"
-                          placeholder="Please enter a number"
-                          defaultValue={1000}
-                          // decimalsLimit={2}
-                          onChange={(e) => handleChange(e)}
-                        />
+                    <div className="relative mt-2 w-full">
+                      <input
+                        // prefix={currencypref ? "$" : "₵"}
+                        type="number"
+                        // className="border px-5 py-4  w-full  h-12 "
+                        className="h-12 px-5 w-full border-l-0 rounded-r-md  block   border-0 py-1.5 text-gray-900  ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        name="price"
+                        placeholder="Please enter a number"
+                        defaultValue={1000}
+                        // decimalsLimit={2}
+                        onChange={(e) => handleChange(e)}
+                      />
 
-                        <div className="absolute inset-y-0 right-0 flex items-center">
-                          <label htmlFor="currency" className="sr-only">
-                            Price
-                          </label>
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Price
+                        </label>
 
-                          <div className="rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-                            {showmonth ? <p>/ Month</p> : <p></p>}
-                          </div>
+                        <div className="rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
+                          {showmonth ? <p>/ Month</p> : <p></p>}
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="flex gap-5 mt-10">
-                  {/* <div className="">
+              <div className="flex flex-cols gap-5 mt-6">
+                {/* <div className="">
                     <label
                       htmlFor="first-name"
                       className="block text-sm font-medium leading-6 text-gray-900"
@@ -167,52 +168,62 @@ function OneStep({ next, prev, handleChange }) {
 
                   
                   </div> */}
-                  <div className="">
-                    <label
-                      htmlFor="first-name"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Duration
-                    </label>
-                    <select
-                      onChange={(e) => handleChange(e)}
-                      name="advance"
-                      id="advance"
-                      className="dropdown mt-2 h-12 rounded-md border bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-                    >
-                      <option className="" value="1 Month">
-                        1 Month
-                      </option>
-                      <option value="3 Months" className="">
-                        3 Months
-                      </option>
-                      <option value="6 Months">6 Months</option>
-                      <option value="1 year">1 year</option>
-                      <option value="2 years">2 years</option>
-                    </select>
-                  </div>
+
+                <div className="w-full">
+                  <label
+                    htmlFor="first-name"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Duration
+                  </label>
+                  <select
+                    onChange={(e) => handleChange(e)}
+                    name="advance"
+                    id="advance"
+                    className="dropdown  border-0 ring-1 ring-inset ring-gray-300 mt-2 h-12 w-full rounded-md  bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                  >
+                    <option className="" value="1 Month">
+                      1 Month
+                    </option>
+                    <option value="3 Months" className="">
+                      3 Months
+                    </option>
+                    <option value="6 Months">6 Months</option>
+                    <option value="1 year">1 year</option>
+                    <option value="2 years">2 years</option>
+                  </select>
                 </div>
-              </ul>
+              </div>
             </div>
           </div>
         </form>
-        <div className=" px-4 py-3  sm:px-6  grid justify-items-end ">
-          <div className="flex gap-x-5">
-            <button
-              onClick={prev()}
-              type="submit"
-              className="inline-flex justify-center rounded-md bg-indigo-300 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-            >
-              Previous
-            </button>
-            <button
-              onClick={next()}
-              type="submit"
-              className="inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-            >
-              Next
-            </button>
-          </div>
+        <div className="mt-10 w-full flex justify-between">
+          <button
+            onClick={prev()}
+            class="inline-flex items-center px-6 py-3 text-gray-500 border-gray-300 bg-gray-200 border font-semibold  rounded-md shadow-sm"
+          >
+            <svg class="mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 22 22">
+              <path
+                fill-rule="evenodd"
+                d="M5.41 11H21a1 1 0 010 2H5.41l5.3 5.3a1 1 0 01-1.42 1.4l-7-7a1 1 0 010-1.4l7-7a1 1 0 011.42 1.4L5.4 11z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <span>Previous</span>
+          </button>
+          <button
+            onClick={next()}
+            class="inline-flex items-center  px-6 py-3 text-white font-semibold bg-blue-700 rounded-md shadow-sm"
+          >
+            <span>Next</span>
+            <svg class="ml-3 w-5 h-5" fill="currentColor" viewBox="0 0 22 22">
+              <path
+                fill-rule="evenodd"
+                d="M18.59 13H3a1 1 0 010-2h15.59l-5.3-5.3a1 1 0 111.42-1.4l7 7a1 1 0 010 1.4l-7 7a1 1 0 01-1.42-1.4l5.3-5.3z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
         </div>
       </div>
     </div>

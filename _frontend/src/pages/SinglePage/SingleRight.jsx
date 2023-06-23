@@ -1,11 +1,15 @@
-import React from 'react'
+import React from "react";
+import { RightAgentCard, RightPrice, RightTourSchedule } from "./rightcomp";
 
 const SingleRight = () => {
   return (
     <div>
-        <p> Price: $ 900.00 / Mon</p>
+      <RightPrice />
+      <hr class="my-4" />
+      <RightAgentCard />
+      <RightTourSchedule />
     </div>
-  )
-}
+  );
+};
 
-export default SingleRight
+export default SingleRight;

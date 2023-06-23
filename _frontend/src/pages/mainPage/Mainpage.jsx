@@ -10,6 +10,7 @@ import {
   category,
   offers,
 } from "../../components/dropdown/droparrays";
+import Cardblock from "./Cardblock";
 
 const Mainpage = () => {
   const [selectOffer, setselectOffer] = useState(offers[0]);
@@ -27,8 +28,8 @@ const Mainpage = () => {
   console.log(filter);
   return (
     <div className="flex gap-x-5">
-      <div className="w-1/4">
-        <div className="shadow rounded-lg mb-10 px-4 bg-white w-full p-4">
+      <div className="w-1/4 hidden md:block">
+        <div className="shadow rounded-lg mb-10 px-4 bg-white w-full p-4 ">
           <p className="font-bold text-lg ">Filter</p>{" "}
           <div className="mt-8">
             Offers:
@@ -66,7 +67,7 @@ const Mainpage = () => {
             {" "}
             <button
               type=""
-              class="w-full mt-8  h-10 bg-gray-800 text-white rounded-md px-4 py-1 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+              class="bg-slate-900 hover:bg-slate-700 w-full py-4 text-center my-6 text-white"
             >
               Search
             </button>
@@ -74,13 +75,14 @@ const Mainpage = () => {
         </div>
       </div>
 
-      <div className="w-3/4">
+      <div className="w-full md:w-3/4">
         <div>
           <div className="shadow rounded-lg mb-10 px-4 bg-white">
             <Searchform />
           </div>
 
-          <Cardlist />
+          {/* <Cardlist /> */}
+          <Cardblock />
           <div>
             {/* <div class="max-w-3xl px-10 my-4 py-6 bg-white rounded-lg shadow-md">
           <div class="flex justify-between items-center">

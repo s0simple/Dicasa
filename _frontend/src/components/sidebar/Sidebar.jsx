@@ -3,7 +3,7 @@ import "./sidebar.css";
 import { Link } from "react-router-dom";
 import MenuItems from "./sidebarNav";
 import { useLocation } from "react-router-dom";
-import { RiArrowLeftSLine, RiArrowDownSLine, RiAddLine } from "react-icons/ri";
+import { RiArrowUpSLine, RiArrowDownSLine, RiAddLine } from "react-icons/ri";
 
 const Sidebar_items = (props) => {
   const [showdrop, setshowdrop] = useState(false);
@@ -25,33 +25,46 @@ const Sidebar_items = (props) => {
     <>
       <div className="">
         <li
-          className={`flex justify-center w-full  py-4 pl-5  hover:text-blue-600  hover:bg-slate-100 ${active}`}
+          className={`flex justify-between items-center w-full h-10 pl-5   hover:text-blue-600 ${active}`}
         >
-          <span className=" flex pl-2 w-full   items-center align-items-center">
-            {props.icon}
-            <span className="ml-2">{props.name}</span>
-          </span>
-
+          <div>
+            <div className="flex justify-between items-center h-full ">
+              <Link to={props.url}>
+                <span className=" flex pl-2 w-full   items-center ">
+                  {props.icon}
+                  <span className="ml-2">{props.name}</span>
+                </span>
+              </Link>
+            </div>
+          </div>
           {props.dropdown ? (
             <button
               onClick={toggledrop}
-              className="flex pl-2 w-40  items-center align-items-center"
+              className=" items-center mr-2 px-2 h-full  "
             >
-              {" "}
-              {showdrop ? <RiArrowDownSLine /> : <RiArrowLeftSLine />}
+              {showdrop ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
             </button>
-          ) : (
-            ""
-          )}
+          ) : null}
         </li>
         {props.dropdown && showdrop ? (
-          <li className={`flex pl-7 w-full items-center text-xs ${subactive}`}>
-            <span>
-              <RiAddLine />
-            </span>
-            <Link to={props.drop_url} className="">
-              New Property
-            </Link>
+          <li
+            className={`   bg-gray-100  py-2 w-full items-center text-xs ${subactive}`}
+          >
+            <div className=" ">
+              <div className="flex flex-col gap-1 mx-5   ">
+                {props.item.child &&
+                  props.item.child.map((i) => (
+                    <Link to={i.drop_url} key={i.id}>
+                      <div className="h-8">
+                        <div className="flex pl-5 rounded hover:bg-gray-200 h-full gap-2 items-center">
+                          <span>{i.icon}</span>
+                          <p>{i.name}</p>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+              </div>
+            </div>
           </li>
         ) : (
           ""
@@ -69,7 +82,7 @@ const Sidebar = (props) => {
   );
 
   return (
-    <div className="  w-1/6 h-screen bg-white shadow ">
+    <div className="  w-1/6  bg-white shadow overflow-y-hidden hover:overflow-y-auto scroll-smooth">
       <div className="">
         {" "}
         <div className="">
@@ -82,21 +95,18 @@ const Sidebar = (props) => {
             </div>
           </div>
           {/* side navigation */}
-          <nav className="nav py-10">
-            <ul className="flex flex-col  text-gray-800">
+          <nav className="nav mt-5">
+            <ul className="flex flex-col gap-2 text-gray-800">
               {MenuItems.map((item, index) => (
-                <Link to={item.url} key={index}>
-                  <Sidebar_items
-                    icon={item.icon}
-                    name={item.name}
-                    url={item.url}
-                    active={index === active}
-                    dropdown={item.dropdown}
-                    drop_name={item.drop_name}
-                    drop_url={item.drop_url}
-                    sub_active={index === subactive}
-                  />
-                </Link>
+                <Sidebar_items
+                  icon={item.icon}
+                  name={item.name}
+                  url={item.url}
+                  active={index === active}
+                  dropdown={item.child}
+                  sub_active={index === subactive}
+                  item={item}
+                />
               ))}
             </ul>
           </nav>

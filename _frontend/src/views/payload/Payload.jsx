@@ -137,11 +137,11 @@ function Payload() {
   return (
     <Mformcontext.Provider value={{ propInput }}>
       <div>
-        <div>
+        {/* <div>
           <div className="rounded-full w-4 h-4 "></div>
-        </div>
+        </div> */}
 
-        <div className="flex mb-10 ">
+        {/* <div className="flex mb-10 ">
           <button
             onClick={prev}
             className="  border bg-gray-200 rounded w-10 h-10 mx-5 px-20 py-2 flex flex-cols items-center justify-center"
@@ -154,11 +154,13 @@ function Payload() {
           >
             Next
           </button>
-        </div>
+        </div> */}
         {/* line */}
         <div className="hidden sm:block" aria-hidden="true">
           <div className="">
-            <div className="border-t border-gray-200" />
+            <p className="font-bold text-xl ">Add a New Property</p>
+            {/* <div className="border-t border-gray-200" /> */}
+            <hr className="my-2" />
           </div>
         </div>
 
