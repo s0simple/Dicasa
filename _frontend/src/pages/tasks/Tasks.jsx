@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Loader } from "../../components";
+import Dropper from "./Dropper";
 
-function Tasks() {
+const Tasks = () => {
+  const [isloading, setisLoading] = useState(false);
+
+  // if(isloading)
+  // return (
+  //   <div className="">
+  //     <Loader />
+  //   </div>
+  // );
+
   return (
-    <div className="">
-      <Loader />
-    </div>
+    <>
+      <div>
+        <div>
+          <Dropper />
+        </div>
+      </div>
+    </>
   );
-}
+};
 
 export default Tasks;

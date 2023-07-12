@@ -1,13 +1,142 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { Mformcontext } from "../../views/payload/Payload";
 import avater from "../../assets/avatar-1577909_1280.webp";
 import axios from "axios";
+import DropBox from "./DropBox";
+import { singleFileUpload, multipleFileUpload } from "../../api";
+import { Line, Circle } from "rc-progress";
+import { v4 as uuid } from "uuid";
+
+const DropImage = ({ image, idd, images, setimages, files, setFiles }) => {
+  const handleClickDelete = (id) => {
+    // console.log(id);
+    // setDeleteId(id);
+    const newdata = images.filter((e, index) => {
+      return index !== id;
+    });
+    setimages(() => newdata);
+    const newfileset = files.filter((e, index) => {
+      return index !== id;
+    });
+    setFiles(() => newfileset);
+  };
+
+  return (
+    <div className="">
+      <div
+        class="relative bg-cover rounded bg-bottom h-80 md:h-64 w-full text-white text-lg text-right"
+        style={{
+          backgroundImage: `url(${image.src})`,
+        }}
+      >
+        <div className=" w-full h-full bg-black  opacity-20 p-3 rounded"></div>
+        <svg
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          height="2em"
+          width="2em"
+          className=" cursor-pointer absolute top-0  right-0 hover:text-red-400 p-1"
+          onClick={() => handleClickDelete(idd)}
+        >
+          <path d="M20 6.91L17.09 4 12 9.09 6.91 4 4 6.91 9.09 12 4 17.09 6.91 20 12 14.91 17.09 20 20 17.09 14.91 12 20 6.91z" />
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const ShowImage = ({ images, setimages, files, setFiles }) => {
+  const show = (image, index) => {
+    return (
+      <div key={index}>
+        <DropImage
+          image={image}
+          idd={index}
+          images={images}
+          files={files}
+          setFiles={setFiles}
+          setimages={setimages}
+        />
+      </div>
+    );
+  };
+  return (
+    <div className="container grid grid-cols-4 gap-4">{images.map(show)}</div>
+  );
+};
 
 function FourStep({ next, prev, step, steps, setstep, handleChange }) {
   const { propInput } = useContext(Mformcontext);
   const [imageURL, setimageURL] = useState(avater);
-  const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
   const [submitting, setsubmitting] = useState(true);
+  const [multiPhotoProgress, setmultiPhotoProgress] = useState("");
+  const [showprogress, setshowprogress] = useState(false);
+  const [files, setFiles] = useState([]);
+  // const [listingsID, setlistingsID] = useState
+
+  const onDrop = useCallback((acceptedFiles) => {
+    acceptedFiles.map((file, index) => {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        setImages((prevState) => [
+          ...prevState,
+          { id: index, src: e.target.result },
+        ]);
+      };
+
+      // console.log(file);
+      reader.readAsDataURL(file);
+
+      // let dee = [];
+      // dee.push(file);
+
+      // setFiles((prev) => [{ file }]);
+
+      // console.log(typeof files);
+
+      console.log(acceptedFiles);
+
+      setFiles((prevState) => [...prevState, file]);
+
+      return file;
+    });
+
+    // console.log(acceptedFiles);
+  }, []);
+
+  const uploadMultipleFile = async () => {
+    // console.log(multipleFiles);
+    setsubmitting(false);
+    const listingsID = JSON.parse(localStorage.getItem("Listings_ID"));
+    const formData = new FormData();
+    formData.append("listing_ID", listingsID);
+
+    for (let i = 0; i < files.length; i++) {
+      // const element = array[i];
+      formData.append("files", files[i]);
+    }
+    await multipleFileUpload(formData);
+    setTimeout(next(), 3000);
+  };
+
+  const multiFileOptions = {
+    onUploadProgress: (progressEvent) => {
+      const { loaded, total } = progressEvent;
+      let percentage = Math.floor((loaded * 100) / total);
+      console.log(`${loaded}kb of ${total}kb | ${percentage}%`);
+
+      if (total > 135) {
+        setshowprogress(true);
+        setmultiPhotoProgress(percentage);
+      }
+    },
+  };
+
+  const trynew = () => {
+    console.log(files);
+    console.log(images);
+  };
 
   const submission = () => {
     return (
@@ -32,37 +161,36 @@ function FourStep({ next, prev, step, steps, setstep, handleChange }) {
             </svg>
             <span class="sr-only">Loading...</span>
           </div>
-          Submiting...
+          Uploading...
         </li>
       </ul>
     );
   };
 
   const onChangePicture = (e) => {
-    setimageURL(URL.createObjectURL(e.target.files[0]));
-    setImage(e.target.files[0]);
+    // setimageURL(URL.createObjectURL(e.target.files));
+    // setImage(e.target.files);
+    console.log(e.target.files);
   };
 
   const productID = JSON.parse(localStorage.getItem("Listings_ID"));
-  console.log(productID);
+  // console.log(images);
 
   const getFileInfo = async () => {
-    setsubmitting(false);
     const formData = new FormData();
-    formData.append("Image", image);
+    formData.append("Image", images);
     formData.append("Listings", productID);
     await axios
       .post("http://localhost:5000/listings/upload", formData)
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
-
-    setTimeout(next(), 3000);
   };
 
+  const uploadFiles = () => {};
   return (
     <div>
-      <div className="md:grid md:grid-cols-4 md:gap-6 mt-5">
-        <div className="md:col-span-1">
+      <div className="flex flex-col gap-6 mt-5">
+        {/* <div className="md:col-span-1">
           <div className="px-4 sm:px-0">
             <h3 className="text-base font-semibold leading-6 text-gray-900">
               Add some images
@@ -71,98 +199,74 @@ function FourStep({ next, prev, step, steps, setstep, handleChange }) {
               Provide us with basic information about your property
             </p>
           </div>
-        </div>
-        <div className="mt-5 sm:rounded-md shadow bg-white md:col-span-3 md:mt-0">
-          <form action="">
+        </div> */}
+        <div className="mt-5 sm:rounded-md shadow bg-white md:col-span-3 md:mt-0 p-5">
+          <div>
+            <DropBox onDrop={onDrop} />
+            <button
+              onClick={() => uploadMultipleFile()}
+              class="inline-flex items-center  px-6 py-3 text-white font-semibold bg-green-700 rounded-md shadow-sm"
+            >
+              <span>{submitting ? "Upload" : submission()}</span>
+              {/* <svg class="ml-3 w-5 h-5" fill="currentColor" viewBox="0 0 22 22">
+                <path
+                  fill-rule="evenodd"
+                  d="M18.59 13H3a1 1 0 010-2h15.59l-5.3-5.3a1 1 0 111.42-1.4l7 7a1 1 0 010 1.4l-7 7a1 1 0 01-1.42-1.4l5.3-5.3z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg> */}
+            </button>
+            <ShowImage
+              images={images}
+              setimages={setImages}
+              files={files}
+              setFiles={setFiles}
+            />
+          </div>
+
+          {showprogress && (
+            <div className="mt-5 w-20 h-20">
+              {/* <Progress percent={photoprogress} strokeWidth={1} /> */}
+              <Circle
+                percent={multiPhotoProgress}
+                strokeWidth={1}
+                strokeColor="#0577e3"
+              />{" "}
+              <p>loading...</p>
+            </div>
+          )}
+          {/* <form action="">
             <div className=" sm:overflow-hidden ">
-              <div className="space-y-6  px-4 py-5 sm:p-6">
-                <label className="block text-sm font-medium leading-6 text-gray-900">
-                  Main Image
-                </label>
+              <div className="grid grid-cols-4 gap-4">{}</div>
 
-                <div className="flex items-center space-x-6">
-                  <div className="shrink-0">
-                    <img
-                      className="h-32 w-32 object-fill rounded-md"
-                      src={imageURL}
-                      alt="Current profile photo"
-                    />
+              <div className="card">
+                <div className="card__wrapper">
+                  <div className="card_image ">
+                    <span className=""></span>
                   </div>
-                  <label className="block">
-                    <span
-                      // onClick={() => setimagechange(true)}
-                      className="sr-only"
-                    >
-                      Choose profile photo
-                    </span>
-                    <input
-                      name={"image"}
-                      onChange={(e) => onChangePicture(e)}
-                      type="file"
-                      className="block w-full text-sm text-slate-500
-      file:mr-4 file:py-2 file:px-4
-      file:rounded-full file:border-0
-      file:text-sm file:font-semibold
-      file:bg-violet-50 file:text-violet-700
-      hover:file:bg-violet-100
-    "
-                    />
-                  </label>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium leading-6 text-gray-900">
-                    Cover photo
-                  </label>
-                  <div className="mt-2 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-                    <div className="space-y-1 text-center">
-                      <svg
-                        className="mx-auto h-12 w-12 text-gray-400"
-                        stroke="currentColor"
-                        fill="none"
-                        viewBox="0 0 48 48"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                          strokeWidth={2}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <div className="flex text-sm text-gray-600">
-                        <label
-                          htmlFor="file-upload"
-                          className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
-                        >
-                          <span>Upload a file</span>
-                          <input
-                            id="file-upload"
-                            name="file-upload"
-                            type="file"
-                            className="sr-only"
-                          />
-                        </label>
-                        <p className="pl-1">or drag and drop</p>
-                      </div>
-                      <p className="text-xs text-gray-500">
-                        PNG, JPG, GIF up to 10MB
-                      </p>
-                    </div>
-                  </div>
+                  <div className="card_upload_input"></div>
+                  <div className="card_requirement"></div>
                 </div>
               </div>
             </div>
-
-            <div>
-              <input
-                type="file"
-                onChange={(e) => setImage(e.target.files[0])}
-              />
-            </div>
-          </form>
+          </form> */}
+          <div className="mt-10 w-full text-center justify-between">
+            {/* <button
+              onClick={prev()}
+              class="inline-flex items-center px-6 py-3 text-gray-500 border-gray-300 bg-gray-200 border font-semibold  rounded-md shadow-sm"
+            >
+              <svg class="mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 22 22">
+                <path
+                  fill-rule="evenodd"
+                  d="M5.41 11H21a1 1 0 010 2H5.41l5.3 5.3a1 1 0 01-1.42 1.4l-7-7a1 1 0 010-1.4l7-7a1 1 0 011.42 1.4L5.4 11z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              <span>Previous</span>
+            </button> */}
+          </div>
         </div>
-        <div className=" px-4 py-3  sm:px-6  grid justify-items-end ">
+        {/* <div className=" px-4 py-3  sm:px-6  grid justify-items-end ">
           <div className="flex gap-x-5">
             <button
               onClick={prev()}
@@ -179,7 +283,7 @@ function FourStep({ next, prev, step, steps, setstep, handleChange }) {
               {submitting ? "submit" : submission()}
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

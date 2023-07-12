@@ -15,7 +15,7 @@ function Dashboard() {
         {/* right column */}
         <div className="w-5/6 max-w-full overflow-y-auto z-20 ">
           {/* right wrap */}
-          <div className="flex flex-col sticky top-0 z-50 ">
+          <div className="flex flex-col sticky top-0  ">
             {/* right nav */}
             <Nav />
           </div>

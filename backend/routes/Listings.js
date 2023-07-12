@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 // photo upload imports
 const cloudinary = require("../services/utils/cloudinary");
-const upload = require("../services/utils/multer");
+const { upload } = require("../services/utils/multer");
 
 require("dotenv").config();
 

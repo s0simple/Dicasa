@@ -54,7 +54,7 @@ const DeleteConfirm = ({ isVisible, onClose, onDelete }) => {
                     <span className="sr-only">Close modal</span>
                   </button>
 
-                  <div className="inline flex ">
+                  <div className=" flex ">
                     {/* <div className="rounded-full border border-gray-300 flex items-center justify-center w-16 h-16 flex-shrink-0 mx-auto">
                       <RiDeleteBin7Fill />
                     </div> */}

@@ -28,6 +28,8 @@ function TwoStep({ next, prev, handleChange }) {
     }
   };
 
+  console.log(propInput);
+
   return (
     <div className="">
       {/* <div className="md:col-span-1">
@@ -43,7 +45,7 @@ function TwoStep({ next, prev, handleChange }) {
       <div className="md:mt-0 shadow sm:rounded-md bg-white p-5 mb-20">
         <form action="">
           <div className="overflow-hidden">
-            <div className="space-y-6  px-4 py-5 sm:p-6 ">
+            <div className=" space-y-6  px-4 py-5 sm:p-6 ">
               {/* checkboxes */}
 
               <input

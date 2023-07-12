@@ -5,7 +5,7 @@ import { Mformcontext } from "../../views/payload/Payload";
 
 function ThreeStep({ next, handleChange }) {
   const { propInput } = useContext(Mformcontext);
-
+  console.log(propInput);
   // const [ischecked, setischecked] = useState(false);
   const [bedcount, setbedCount] = useState(0);
   const [bathcount, setbathCount] = useState(0);

@@ -98,15 +98,17 @@ const Sidebar = (props) => {
           <nav className="nav mt-5">
             <ul className="flex flex-col gap-2 text-gray-800">
               {MenuItems.map((item, index) => (
-                <Sidebar_items
-                  icon={item.icon}
-                  name={item.name}
-                  url={item.url}
-                  active={index === active}
-                  dropdown={item.child}
-                  sub_active={index === subactive}
-                  item={item}
-                />
+                <div key={index}>
+                  <Sidebar_items
+                    icon={item.icon}
+                    name={item.name}
+                    url={item.url}
+                    active={index === active}
+                    dropdown={item.child}
+                    sub_active={index === subactive}
+                    item={item}
+                  />
+                </div>
               ))}
             </ul>
           </nav>

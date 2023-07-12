@@ -62,7 +62,7 @@ const SinglePage = () => {
         <div className="description mt-8">
           <div className="descriptionTitle font-bold text-2xl">Description</div>
           <div className="descriptionBody mt-3">
-            Lorem ipsum dolor sit amet, wisi nemore fastidii at vis, eos equidem
+            {/* Lorem ipsum dolor sit amet, wisi nemore fastidii at vis, eos equidem
             admodum disputando ea. An duis dolor appellantur mea, est id zril
             nobis appellantur. Ei sea duis senserit qualisque, te facilisis
             appellantur pri. Id aperiri aliquam interesset mel. Contentiones
@@ -71,7 +71,10 @@ const SinglePage = () => {
             oporteat pertinacia quo, cu qui antiopam intellegebat, ei alii paulo
             has. In alia eros ornatus pri, graeci accusata pericula an vix. His
             ne homero dignissim, aliquam dolores scriptorem vis ut. Sit ad suas
-            adhuc interesset, nec no essent iuvaret adipiscing everti.
+            adhuc interesset, nec no essent iuvaret adipiscing everti. */}
+            <div className="sandy1">
+              this is sandra property we trying to learn a new thing
+            </div>
           </div>
         </div>
         <hr className="my-8 h-2 " />

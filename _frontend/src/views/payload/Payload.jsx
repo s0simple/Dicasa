@@ -15,6 +15,7 @@ export const Mformcontext = createContext();
 function Payload() {
   const [step, setstep] = useState(1);
   const [propInput, setPropInput] = useState({});
+  // const [checked, setChecked] = useState("sale");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +23,7 @@ function Payload() {
       ...prev,
       product: uuid(),
       [name]: value,
+      // offer: setChecked(value),
     }));
   };
 

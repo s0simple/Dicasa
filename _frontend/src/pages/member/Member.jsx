@@ -167,7 +167,7 @@ const Member = () => {
 
             <Menu as="div" className="relative inline-block text-left">
               <div>
-                <Menu.Button className="hover:bg-gray-100 inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-400 shadow-sm  ring-inset ring-gray-300 hover:bg-gray-50">
+                <Menu.Button className=" inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-400 shadow-sm  ring-inset ring-gray-300 hover:bg-gray-50">
                   <svg
                     class="w-6 h-6"
                     aria-hidden="true"
@@ -305,7 +305,7 @@ const Member = () => {
 
           <Cards addmodel={() => handleClickAdd()} />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-1 w-2xl grid grid-cols-1 lg:grid-cols-2 gap-6  w-2xl container  mx-auto  mx-auto">
+        <div className=" w-2xl grid grid-cols-1 lg:grid-cols-2 gap-6  w-2xl container    mx-auto">
           <article className="">
             <div className="bg-white shadow rounded-lg mb-6 p-4">
               {/* <div className="flex justify-end">
