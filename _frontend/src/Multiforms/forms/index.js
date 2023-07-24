@@ -4,3 +4,4 @@ export { default as Threestep } from "./ThreeStep";
 export { default as Onestep } from "./OneStep";
 export { default as PreviewStep } from "./PreviewStep";
 export { default as SuccessStep } from "./SuccessStep";
+export { default as FiveStep } from "./FiveStep";

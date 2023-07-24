@@ -6,7 +6,11 @@ import { checkbox_items } from "./check_items";
 const checkboxValues = ["A/C", "Internet", "Electricity", "Gas"];
 
 function TwoStep({ next, prev, handleChange }) {
-  const [checkedValues, setCheckedValues] = useState([]);
+  const [checkedValues, setCheckedValues] = useState([
+    "Water",
+    "Electricity",
+    "Gas",
+  ]);
   console.log(checkedValues);
   const { propInput } = useContext(Mformcontext);
   // console.log(propInput);
@@ -28,10 +32,8 @@ function TwoStep({ next, prev, handleChange }) {
     }
   };
 
-  console.log(propInput);
-
   return (
-    <div className="">
+    <div className=" ">
       {/* <div className="md:col-span-1">
         <div className="px-4 sm:px-0">
           <h3 className="text-base font-semibold leading-6 text-gray-900">
@@ -42,9 +44,9 @@ function TwoStep({ next, prev, handleChange }) {
           </p>
         </div>
       </div> */}
-      <div className="md:mt-0 shadow sm:rounded-md bg-white p-5 mb-20">
+      <div className="md:mt-0">
         <form action="">
-          <div className="overflow-hidden">
+          <div className="">
             <div className=" space-y-6  px-4 py-5 sm:p-6 ">
               {/* checkboxes */}
 
@@ -57,8 +59,10 @@ function TwoStep({ next, prev, handleChange }) {
             </div>
           </div>
 
-          <fieldset class="checkbox-group">
-            <legend class="checkbox-group-legend">Choose your favorites</legend>
+          <fieldset class="checkbox-group ">
+            <div class="checkbox-group-legend mb-4">
+              Select utilites available in your property
+            </div>
 
             {checkbox_items.map((item, index) => (
               <div class="checkbox" key={index}>
@@ -81,7 +85,7 @@ function TwoStep({ next, prev, handleChange }) {
           </fieldset>
         </form>
 
-        <div className="mt-10 w-full flex justify-between">
+        <div className=" w-full flex justify-between absolute bottom-0">
           <button
             onClick={prev()}
             class="inline-flex items-center px-6 py-3 text-gray-500 border-gray-300 bg-gray-200 border font-semibold  rounded-md shadow-sm"

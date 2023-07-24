@@ -1,11 +1,16 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useState, Fragment } from "react";
 import { Mformcontext } from "../../views/payload/Payload";
 import avater from "../../assets/avatar-1577909_1280.webp";
 import axios from "axios";
 import DropBox from "./DropBox";
+import { Dialog, Transition } from "@headlessui/react";
+
 import { singleFileUpload, multipleFileUpload } from "../../api";
 import { Line, Circle } from "rc-progress";
 import { v4 as uuid } from "uuid";
+
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 const DropImage = ({ image, idd, images, setimages, files, setFiles }) => {
   const handleClickDelete = (id) => {
@@ -22,9 +27,9 @@ const DropImage = ({ image, idd, images, setimages, files, setFiles }) => {
   };
 
   return (
-    <div className="">
+    <div className="mt-5">
       <div
-        class="relative bg-cover rounded bg-bottom h-80 md:h-64 w-full text-white text-lg text-right"
+        class="relative bg-cover rounded bg-bottom h-80 md:h-48 w-64 text-white text-lg text-right"
         style={{
           backgroundImage: `url(${image.src})`,
         }}
@@ -61,7 +66,12 @@ const ShowImage = ({ images, setimages, files, setFiles }) => {
     );
   };
   return (
-    <div className="container grid grid-cols-4 gap-4">{images.map(show)}</div>
+    <div
+      className=" flex flex-wrap gap-2
+  "
+    >
+      {images.map(show)}
+    </div>
   );
 };
 
@@ -73,6 +83,7 @@ function FourStep({ next, prev, step, steps, setstep, handleChange }) {
   const [multiPhotoProgress, setmultiPhotoProgress] = useState("");
   const [showprogress, setshowprogress] = useState(false);
   const [files, setFiles] = useState([]);
+  let [isOpen, setIsOpen] = useState(false);
   // const [listingsID, setlistingsID] = useState
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -106,6 +117,9 @@ function FourStep({ next, prev, step, steps, setstep, handleChange }) {
   }, []);
 
   const uploadMultipleFile = async () => {
+    setIsOpen(true);
+    setshowprogress(true);
+    // setIsOpen(true);
     // console.log(multipleFiles);
     setsubmitting(false);
     const listingsID = JSON.parse(localStorage.getItem("Listings_ID"));
@@ -116,7 +130,7 @@ function FourStep({ next, prev, step, steps, setstep, handleChange }) {
       // const element = array[i];
       formData.append("files", files[i]);
     }
-    await multipleFileUpload(formData);
+    await multipleFileUpload(formData, multiFileOptions);
     setTimeout(next(), 3000);
   };
 
@@ -133,10 +147,11 @@ function FourStep({ next, prev, step, steps, setstep, handleChange }) {
     },
   };
 
-  const trynew = () => {
-    console.log(files);
-    console.log(images);
-  };
+  // const trynew = () => {
+  //   console.log(files);
+  //   console.log(images);
+  // };
+  const percentage = 66;
 
   const submission = () => {
     return (
@@ -186,36 +201,24 @@ function FourStep({ next, prev, step, steps, setstep, handleChange }) {
       .catch((err) => console.log(err));
   };
 
-  const uploadFiles = () => {};
+  const uploaddialog = () => {
+    return isOpen;
+  };
   return (
     <div>
       <div className="flex flex-col gap-6 mt-5">
-        {/* <div className="md:col-span-1">
-          <div className="px-4 sm:px-0">
-            <h3 className="text-base font-semibold leading-6 text-gray-900">
-              Add some images
-            </h3>
-            <p className="mt-1 text-sm text-gray-600">
-              Provide us with basic information about your property
-            </p>
-          </div>
-        </div> */}
-        <div className="mt-5 sm:rounded-md shadow bg-white md:col-span-3 md:mt-0 p-5">
-          <div>
-            <DropBox onDrop={onDrop} />
-            <button
-              onClick={() => uploadMultipleFile()}
-              class="inline-flex items-center  px-6 py-3 text-white font-semibold bg-green-700 rounded-md shadow-sm"
-            >
-              <span>{submitting ? "Upload" : submission()}</span>
-              {/* <svg class="ml-3 w-5 h-5" fill="currentColor" viewBox="0 0 22 22">
-                <path
-                  fill-rule="evenodd"
-                  d="M18.59 13H3a1 1 0 010-2h15.59l-5.3-5.3a1 1 0 111.42-1.4l7 7a1 1 0 010 1.4l-7 7a1 1 0 01-1.42-1.4l5.3-5.3z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg> */}
-            </button>
+        <div className="mt-5 sm:rounded-md  md:col-span-3 md:mt-0 p-5">
+          <DropBox onDrop={onDrop} />
+          <div className="flex flex-col text-center justify-center items-center">
+            {images.length != 0 && (
+              <button
+                onClick={() => uploadMultipleFile()}
+                class="inline-flex items-center  px-6 py-3 text-white font-semibold bg-green-700 rounded-md shadow-sm"
+              >
+                <span>{submitting ? "Upload" : submission()}</span>
+              </button>
+            )}
+
             <ShowImage
               images={images}
               setimages={setImages}
@@ -224,66 +227,80 @@ function FourStep({ next, prev, step, steps, setstep, handleChange }) {
             />
           </div>
 
-          {showprogress && (
-            <div className="mt-5 w-20 h-20">
-              {/* <Progress percent={photoprogress} strokeWidth={1} /> */}
-              <Circle
-                percent={multiPhotoProgress}
-                strokeWidth={1}
-                strokeColor="#0577e3"
-              />{" "}
-              <p>loading...</p>
-            </div>
-          )}
-          {/* <form action="">
-            <div className=" sm:overflow-hidden ">
-              <div className="grid grid-cols-4 gap-4">{}</div>
+          <div className=" ">
+            <Dialog
+              open={isOpen}
+              onClose={() => setIsOpen(false)}
+              className="relative z-50"
+            >
+              {/* The backdrop, rendered as a fixed sibling to the panel container */}
+              <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
-              <div className="card">
-                <div className="card__wrapper">
-                  <div className="card_image ">
-                    <span className=""></span>
+              {/* Full-screen container to center the panel */}
+              <div className="fixed inset-0 flex items-center justify-center p-4">
+                {/* The actual dialog panel  */}
+                <Dialog.Panel className="mx-auto max-w-sm rounded">
+                  <div style={{ width: 200, height: 200 }}>
+                    <CircularProgressbar
+                      value={multiPhotoProgress}
+                      text={`${multiPhotoProgress}%`}
+                      styles={{
+                        // Customize the root svg element
+                        root: {},
+                        // Customize the path, i.e. the "completed progress"
+                        path: {
+                          // Path color
+                          stroke: `rgba(62, 152, 199, ${
+                            multiPhotoProgress / 100
+                          })`,
+                          // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                          strokeLinecap: "butt",
+                          // Customize transition animation
+                          transition: "stroke-dashoffset 0.5s ease 0s",
+                          // Rotate the path
+                          transform: "rotate(0.25turn)",
+                          transformOrigin: "center center",
+                        },
+                        // Customize the circle behind the path, i.e. the "total progress"
+                        trail: {
+                          // Trail color
+                          stroke: "#d6d6d6",
+                          // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                          strokeLinecap: "butt",
+                          // Rotate the trail
+                          transform: "rotate(0.25turn)",
+                          transformOrigin: "center center",
+                        },
+                        // Customize the text
+                        text: {
+                          // Text color
+                          fill: "#fffff",
+                          // Text size
+                          fontSize: "16px",
+                        },
+                        // Customize background - only used when the `background` prop is true
+                        background: {
+                          fill: "#00000",
+                        },
+                      }}
+                    />
                   </div>
-                  <div className="card_upload_input"></div>
-                  <div className="card_requirement"></div>
-                </div>
+                </Dialog.Panel>
               </div>
-            </div>
-          </form> */}
+            </Dialog>
+          </div>
+
           <div className="mt-10 w-full text-center justify-between">
-            {/* <button
-              onClick={prev()}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
               class="inline-flex items-center px-6 py-3 text-gray-500 border-gray-300 bg-gray-200 border font-semibold  rounded-md shadow-sm"
             >
-              <svg class="mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 22 22">
-                <path
-                  fill-rule="evenodd"
-                  d="M5.41 11H21a1 1 0 010 2H5.41l5.3 5.3a1 1 0 01-1.42 1.4l-7-7a1 1 0 010-1.4l7-7a1 1 0 011.42 1.4L5.4 11z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-              <span>Previous</span>
-            </button> */}
+              dialogg
+            </button>
+
+            <div></div>
           </div>
         </div>
-        {/* <div className=" px-4 py-3  sm:px-6  grid justify-items-end ">
-          <div className="flex gap-x-5">
-            <button
-              onClick={prev()}
-              type="submit"
-              className="inline-flex justify-center rounded-md bg-indigo-300 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-            >
-              Previous
-            </button>
-            <button
-              onClick={getFileInfo}
-              type="submit"
-              className="inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-            >
-              {submitting ? "submit" : submission()}
-            </button>
-          </div>
-        </div> */}
       </div>
     </div>
   );

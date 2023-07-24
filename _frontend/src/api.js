@@ -10,9 +10,9 @@ export const singleFileUpload = async (data, options) => {
   }
 };
 
-export const multipleFileUpload = async (data) => {
+export const multipleFileUpload = async (data, option) => {
   try {
-    await axios.post(apiURL + "multipleFile", data);
+    await axios.post(apiURL + "multipleFile", data, option);
   } catch (error) {
     throw error;
   }

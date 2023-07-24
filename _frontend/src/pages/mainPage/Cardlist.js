@@ -55,7 +55,7 @@ function Cardlist() {
                           <div
                             class="bg-cover bg-bottom h-80 md:h-64  w-full"
                             style={{
-                              backgroundImage: `url(${data.photo_main})`,
+                              backgroundImage: `url(${data.image_main})`,
                             }}
                           ></div>
 

@@ -4,9 +4,11 @@ import Cards from "../../components/cards/Cards";
 import { TbHeart } from "react-icons/tb";
 import Searchform from "./Searchform";
 import { IoLocationOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 function Cardblock() {
   const [fetchData, setfetchData] = useState([]);
+  const [IsLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,6 +16,7 @@ function Cardblock() {
         .get("http://localhost:5000/listings")
         .then((fetch) => {
           setfetchData(() => fetch.data.response);
+          setIsLoading(false);
           console.log(fetch.data.response);
         })
         .catch((err) => console.log(err));
@@ -30,6 +33,16 @@ function Cardblock() {
     return price;
   };
 
+  if (IsLoading) {
+    return (
+      <div class="w-full flex flex-col overflow-hidden  h-screen justify-center items-center ">
+        <div className="relative">
+          <div class="w-20 h-20 border-blue-200 border-2 rounded-full"></div>
+          <div class="w-20 h-20 border-blue-500 border-t-2 animate-spin rounded-full absolute left-0 top-0"></div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       {/* <div className="shadow rounded-lg mb-10 p-4  ">
@@ -44,7 +57,7 @@ function Cardblock() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
         {fetchData.map((data) => {
           return (
-            <div key={data._id}>
+            <Link key={data._id} to={`/dashboard/singlepage/${data._id}`}>
               <div className="propcard cursor-pointer">
                 <div className="propcardwrapper bg-white shadow rounded">
                   <div className="propcardhead">
@@ -146,7 +159,7 @@ function Cardblock() {
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

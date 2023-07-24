@@ -12,10 +12,11 @@ import "./slide.scss";
 
 // import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper";
-import { images } from "./imagelinks";
+// import { images } from "./imagelinks";
 
-const Gallery = () => {
+const Gallery = ({ images }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
   return (
     <>
       <Swiper
@@ -32,11 +33,21 @@ const Gallery = () => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        {images.map((item, index) => (
+        {images.map((data, index) => (
+          <SwiperSlide key={index}>
+            <img
+              className="w-full max-h-full"
+              src={`http://localhost:5000/${data.filePath}`}
+              alt=""
+            />
+          </SwiperSlide>
+        ))}
+        {/* {images.map((item, index) => (
           <SwiperSlide key={index}>
             <img className="w-full max-h-full" src={item.value} alt="" />
           </SwiperSlide>
-        ))}
+        ))} */}
+
         {/* <SwiperSlide>something</SwiperSlide> */}
       </Swiper>
       <Swiper
@@ -55,93 +66,17 @@ const Gallery = () => {
       >
         {images.map((item, index) => (
           <SwiperSlide key={index}>
-            <img className="w-full max-h-full" src={item.value} alt="" />
+            <img
+              className="w-full max-h-full"
+              src={item.cloudinaryURL}
+              alt=""
+            />
           </SwiperSlide>
         ))}
         {/* <SwiperSlide>something</SwiperSlide> */}
       </Swiper>
     </>
   );
-  //   const [gallerySwiper, getGallerySwiper] = useState(null);
-  //   const [thumbnailSwiper, getThumbnailSwiper] = useState(null);
-  //   const gallerySwiperParams = {
-  //     getSwiper: getGallerySwiper,
-  //     spaceBetween: 10,
-  //     navigation: {
-  //       nextEl: ".swiper-button-next",
-  //       prevEl: ".swiper-button-prev",
-  //     },
-  //   };
-
-  //   const thumbnailSwiperParams = {
-  //     getSwiper: thumbnailSwiper,
-  //     spaceBetween: 10,
-  //     centeredSlides: true,
-  //     slidesPerView: "auto",
-  //     touchRatio: 0.2,
-  //     slideToClickedSlide: true,
-  //   };
-
-  //   useEffect(() => {
-  //     if (
-  //       gallerySwiper !== null &&
-  //       gallerySwiper.controller &&
-  //       thumbnailSwiper !== null &&
-  //       thumbnailSwiper.controller
-  //     ) {
-  //       gallerySwiper.controller.control = thumbnailSwiper;
-  //       thumbnailSwiper.controller.control = gallerySwiper;
-  //     }
-  //   }, [gallerySwiper, thumbnailSwiper]);
-
-  //   return (
-  //     <div>
-  //       <Swiper {...gallerySwiperParams}>
-  //         <div
-  //           class="swiper-slide bg-black w-60 h-60"
-  //           //  style="background-image:url(http://lorempixel.com/600/600/nature/1)"
-  //         ></div>
-  //         <div
-  //           class="swiper-slide bg-blue-500 w-60 h-60"
-  //           //  style="background-image:url(http://lorempixel.com/600/600/nature/2)"
-  //         ></div>
-  //         <div
-  //           class="swiper-slide bg-green-500 w-60 h-60 "
-  //           //  style="background-image:url(http://lorempixel.com/600/600/nature/3)"
-  //         ></div>
-  //         <div
-  //           class="swiper-slide bg-red-500 w-60 h-60"
-  //           //   style="background-image:url(http://lorempixel.com/600/600/nature/4)"
-  //         ></div>
-  //         <div
-  //           class="swiper-slide bg-yellow-500 w-60 h-60"
-  //           //  style="background-image:url(http://lorempixel.com/600/600/nature/5)"
-  //         ></div>
-  //       </Swiper>
-  //       <Swiper {...thumbnailSwiperParams}>
-  //         <div
-  //           class="swiper-slide bg-black w-60 h-60"
-  //           //   style="background-image:url(http://lorempixel.com/600/600/nature/1)"
-  //         ></div>
-  //         <div
-  //           class="swiper-slide bg-blue-500 w-60 h-60"
-  //           //   style="background-image:url(http://lorempixel.com/600/600/nature/2)"
-  //         ></div>
-  //         <div
-  //           class="swiper-slide bg-green-500 w-60 h-60"
-  //           // style="background-image:url(http://lorempixel.com/600/600/nature/3)"
-  //         ></div>
-  //         <div
-  //           class="swiper-slide bg-red-500 w-60 h-60"
-  //           // style="background-image:url(http://lorempixel.com/600/600/nature/4)"
-  //         ></div>
-  //         <div
-  //           class="swiper-slide bg-yellow-500 w-60 h-60"
-  //           //   style="background-image:url(http://lorempixel.com/600/600/nature/5)"
-  //         ></div>
-  //       </Swiper>
-  //     </div>
-  //   );
 };
 
 export default Gallery;

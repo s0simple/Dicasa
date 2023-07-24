@@ -19,6 +19,7 @@ import {
   Trylog,
   Mainpage,
   SinglePage,
+  Dashlayout,
 } from "./pages";
 import { NewProduct } from "./operations/";
 import "./App.css";
@@ -29,7 +30,7 @@ const App = () => {
   return (
     <div className="bg-color">
       <Routes>
-        <Route path="/dashboard" element={<Dashboard />}>
+        <Route path="/dashboard" element={<Dashlayout />}>
           <Route path="Profile" element={<Profile />} />
           <Route path="Schedule" element={<Schedule />} />
           <Route path="Tasks" element={<Tasks />} />
@@ -40,7 +41,7 @@ const App = () => {
           <Route path="listings" element={<Listings />} />
           <Route path="newproduct" element={<NewProduct />} />
           <Route path="mainpage" element={<Mainpage />} />
-          <Route path="singlepage" element={<SinglePage />} />
+          <Route path="singlepage/:id" element={<SinglePage />} />
         </Route>
 
         <Route path="/login" element={<Login />} />
@@ -49,6 +50,7 @@ const App = () => {
         <Route path="*" element={<Notfound />} />
 
         <Route path="/payload" element={<Payload />} />
+        <Route path="/Dashlayout" element={<Dashlayout />} />
 
         {/* <Route path="/sidebar" element={<Sidebar />} /> */}
       </Routes>

@@ -1,51 +1,73 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Gallery from "../../elements/Gallary";
 // import Slider1 from "../../elements/Slider1";
 import SingleRight from "./SingleRight";
 
 const SinglePage = () => {
   const [fetchData, setfetchData] = useState([]);
+  const [fetchFiles, setFetchFiles] = useState([]);
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("item"));
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { id } = useParams();
 
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token.token}`,
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     await axios
-  //       .get("http://localhost:5000/listings")
-  //       .then((fetch) => {
-  //         setfetchData(() => fetch.data.response);
-  //         console.log(fetch.data.response);
-  //         setIsLoading(false);
-  //       })
-  //       .catch(() => navigate("/"));
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get(`http://localhost:5000/listings/singleprop/${id}`)
+        .then((fetch) => {
+          setFetchFiles(() => fetch.data.files);
+          console.log(fetch.data.files);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get(`http://localhost:5000/listings/${id}`)
+        .then((fetch) => {
+          setfetchData(() => fetch.data.response);
+          console.log(fetch.data.response);
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    };
+
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return <p>loading...</p>;
+  }
 
   return (
     <div className="flex gap-5">
       <div className=" w-4/6 shadow rounded-lg mb-10 p-4 bg-white">
         <div className=" photoarea ">
           <div className="w-full h-full ">
-            <Gallery />
+            <Gallery images={fetchFiles} />
           </div>
         </div>
         <div className="slider">{/* <Slider1 /> */}</div>
 
         <div className="titlearea">
           <div>
-            <p className="offer">Rent</p>
-            <p className="title text-4xl font-bold">
-              Luxirious apartment at East legon
+            <p className="offer">
+              {fetchData.offer === "rent" ? "Rent" : "Sale"}
             </p>
+            <p className="title text-4xl font-bold">{fetchData.name}</p>
             <div>
               <ul className="flex gap-2 h-5 ">
                 <li className=" flex content-center justify-between gap-2">
@@ -111,7 +133,9 @@ const SinglePage = () => {
                       <p className="icon">i</p>
                       <p className="label text-gray-500">Bedrooms:</p>
                     </div>
-                    <div className="featvalue font-semibold">2</div>
+                    <div className="featvalue font-semibold">
+                      {fetchData.beds}
+                    </div>
                   </div>
                   <hr className="my-2" />
                 </div>
@@ -121,7 +145,9 @@ const SinglePage = () => {
                       <p className="icon">i</p>
                       <p className="label text-gray-500  ">Bathrooms:</p>
                     </div>
-                    <div className="featvalue font-semibold">2</div>
+                    <div className="featvalue font-semibold">
+                      {fetchData.bath}
+                    </div>
                   </div>
                   <hr className="my-2" />
                 </div>

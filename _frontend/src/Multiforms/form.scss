@@ -1,9 +1,25 @@
+input[type="number"],
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+  background: transparent;
+	border: none;
+	outline-width: 0;
 }
-
+input[type="text"],
+input[type="text"]:focus   
+{
+	background: transparent;
+	border: none;
+	outline-width: 0;
+}
+select
+{
+         background: transparent;
+         border: none;
+         outline-width: 0;
+}
 .custom-number-input input:focus {
   outline: none !important;
 }
@@ -108,8 +124,8 @@ option {
 
 .checkbox-group-legend {
 	font-size: 1.5rem;
-	font-weight: 700;
-	color: #9c9c9c;
+	font-weight: 500;
+	color: #000000;
 	text-align: center;
 	line-height: 1.125;
 	margin-bottom: 1.25rem;
@@ -126,24 +142,26 @@ option {
 	width: 1px;
 
 	&:checked + .checkbox-tile {
-		border-color: #2260ff;
+		border-color: #4B0082;
 		box-shadow: 0 5px 10px rgba(#000, 0.1);
-		color: #2260ff;
+		color: #4B0082;
+		background-color: #ebf3f3;
 		&:before {
 			transform: scale(1);
 			opacity: 1;
-			background-color: #2260ff;
-			border-color: #2260ff;
+			background-color: #4B0082;
+			border-color: #4B0082;
 		}
 		
 		.checkbox-icon, .checkbox-label {
-			color: #2260ff;
+			color: #4B0082;
 		}
 	}
 	
 	&:focus + .checkbox-tile {
-		border-color: #2260ff;
-		box-shadow: 0 5px 10px rgba(#000, 0.1), 0 0 0 4px #b5c9fc;
+		border-color: #4B0082;
+		
+		box-shadow: 0 5px 10px rgba(#000, 0.1), 0 0 0 4px #d5a2fa;
 		&:before {
 			transform: scale(1);
 			opacity: 1;
@@ -159,8 +177,8 @@ option {
 	width: 7rem;
 	min-height: 7rem;
 	border-radius: 0.5rem;
-	border: 2px solid #b5bfd9;
-	background-color: #fff;
+	border: 1px solid #000000;
+	// background-color: #fff;
 	box-shadow: 0 5px 10px rgba(#000, 0.1);
 	transition: 0.15s ease;
 	cursor: pointer;
@@ -172,8 +190,8 @@ option {
 		display: block;
 		width: 1.25rem;
 		height: 1.25rem;
-		border: 2px solid #b5bfd9;
-		background-color: #fff;
+		border: 1px solid #000000;
+		background-color: #dfdfdf;
 		border-radius: 50%;
 		top: 0.25rem;
 		left: 0.25rem;
@@ -187,7 +205,7 @@ option {
 	}
 
 	&:hover {
-		border-color: #2260ff;
+		border-color: #4B0082;
 		&:before {
 			transform: scale(1);
 			opacity: 1;

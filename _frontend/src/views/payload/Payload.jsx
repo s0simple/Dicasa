@@ -4,6 +4,7 @@ import {
   Twostep,
   Threestep,
   FourStep,
+  FiveStep,
   PreviewStep,
   SuccessStep,
 } from "../../Multiforms/forms";
@@ -13,7 +14,7 @@ import { v4 as uuid } from "uuid";
 export const Mformcontext = createContext();
 
 function Payload() {
-  const [step, setstep] = useState(1);
+  const [step, setstep] = useState(0);
   const [propInput, setPropInput] = useState({});
   // const [checked, setChecked] = useState("sale");
 
@@ -55,6 +56,12 @@ function Payload() {
       setstep={() => setstep}
       handleChange={(e) => handleChange(e)}
     />,
+    <FiveStep
+      next={() => next}
+      prev={() => prev}
+      setstep={() => setstep}
+      handleChange={(e) => handleChange(e)}
+    />,
     // <PreviewStep
     //   next={() => next}
     //   prev={() => prev}
@@ -68,16 +75,18 @@ function Payload() {
   ];
 
   const stepper = () => {
-    if (step === 1) {
+    if (step === 0) {
       return steps[0];
-    } else if (step === 2) {
+    } else if (step === 1) {
       return steps[1];
-    } else if (step === 3) {
+    } else if (step === 2) {
       return steps[2];
-    } else if (step === 4) {
+    } else if (step === 3) {
       return steps[3];
-    } else if (step === 5) {
+    } else if (step === 4) {
       return steps[4];
+    } else if (step === 5) {
+      return steps[5];
     } else {
       console.log("nothing");
     }
@@ -106,7 +115,7 @@ function Payload() {
     console.log(step);
   };
   const prev = () => {
-    if (step > 1) {
+    if (step >= 1) {
       return setstep((current) => current - 1);
     } else setstep((current) => current);
   };
@@ -160,7 +169,6 @@ function Payload() {
         {/* line */}
         <div className="hidden sm:block" aria-hidden="true">
           <div className="">
-            <p className="font-bold text-xl ">Add a New Property</p>
             {/* <div className="border-t border-gray-200" /> */}
             <hr className="my-2" />
           </div>

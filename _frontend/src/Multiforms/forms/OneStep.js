@@ -1,24 +1,34 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, Fragment, useEffect } from "react";
 import "../form.scss";
 import CurrencyInput from "react-currency-input-field";
 import { Mformcontext } from "../../views/payload/Payload";
+import { RadioGroup } from "@headlessui/react";
+import "./fiveStep.scss";
+
+const plans = ["Rent", "Sale"];
 
 function OneStep({ next, prev, handleChange }) {
   const [showmonth, setShowMonth] = useState(false);
   const [currencypref, setcurrencypref] = useState(false);
   const [checked, setChecked] = useState("rent");
-
+  let [plan, setPlan] = useState(0);
   const { propInput } = useContext(Mformcontext);
+
+  useEffect(() => {
+    const fetch = () => {
+      let data = propInput;
+      return data;
+    };
+
+    fetch();
+  }, [propInput]);
 
   const isRadioSelected = (value) => {
     return propInput.offer === value;
   };
 
-  const permonth = () => {
-    return setShowMonth(true);
-  };
+  propInput.offer = plans[plan];
 
-  console.log(propInput);
   return (
     <div className="">
       {/* <div className="md:col-span-1">
@@ -33,53 +43,66 @@ function OneStep({ next, prev, handleChange }) {
         </div>
       </div> */}
 
-      <div className=" shadow sm:rounded-md bg-white p-5 mb-20">
+      <div className=" h-full   mt-4  overflow-hidden ">
         <form action="">
-          <div className=" sm:overflow-hidden ">
+          <div className="  ">
             <div className="flex flex-col gap-y-6">
               {/* radio switch */}
               <div className="w-full ">
                 <p className="block text-sm font-medium leading-6 text-gray-900">
                   Offer:
                 </p>
+                <RadioGroup value={plan} onChange={setPlan}>
+                  {/* <RadioGroup.Label className="">
+              <p className="flex flex-col items-center text-gray-500 ">
+                Please Select a picture to use as main
+              </p>
+            </RadioGroup.Label> */}
+                  <div className=" flex items-center gap-2 mt-2">
+                    {plans.map((item, index) => (
+                      <RadioGroup.Option
+                        key={index}
+                        value={index}
+                        as={Fragment}
+                      >
+                        {({ checked }) => (
+                          <div
+                            type="button"
+                            className=" ring-2 ring-inset ring-gray-400 rounded-lg  transform active:scale-95 transition-transform"
+                          >
+                            <span
+                              className={
+                                checked
+                                  ? "ring-blue-500 ring-2 text-blue-500 font-semibold rounded-lg ring-inset shadow-lg bg-gray-100 cursor-pointer relative flex items-center gap-2"
+                                  : "  overflow-hidden rounded-lg  shadow-lg cursor-pointer"
+                              }
+                            >
+                              <div className="font-medium py-8 px-16 ">
+                                for {item}
+                              </div>
+                              <div className="absolute top-0 right-0 p-2 forPhotos">
+                                <label class="checkbox">
+                                  <input type="checkbox" readOnly />
+                                </label>
+                              </div>
 
-                <ul className="flex items-center h-20 mt-1 ">
-                  <li className="some">
-                    <input
-                      className="sr-only peer"
-                      type="radio"
-                      value="sale"
-                      name="offer"
-                      id="sale"
-                      checked={isRadioSelected("sale")}
-                      // checked={propInput.offer === "sale"}
-                      onChange={(e) => handleChange(e)}
-                    />
-                    <label
-                      className="text-gray-500 border-gray-300 peer-checked:border-blue-700 bg-gray-200 border px-8 py-6 rounded-l-md  peer-checked:bg-blue-500 font-bold peer-checked:text-white "
-                      htmlFor="sale"
-                    >
-                      For Sale
-                    </label>
-                  </li>
-                  <li className="">
-                    <input
-                      className="sr-only peer"
-                      type="radio"
-                      value="rent"
-                      name="offer"
-                      id="rent"
-                      checked={isRadioSelected("rent")}
-                      onChange={(e) => handleChange(e)}
-                    />
-                    <label
-                      className="text-gray-500 border-gray-300 bg-gray-200 border px-8 py-6 rounded-r-md peer-checked:border-blue-700  peer-checked:bg-blue-500 font-bold peer-checked:text-white"
-                      htmlFor="rent"
-                    >
-                      For Rent
-                    </label>
-                  </li>
-                </ul>
+                              {checked && (
+                                <div className="absolute top-0 right-0 p-2 forPhotos">
+                                  <label class="checkbox bounce">
+                                    <input type="checkbox" checked readOnly />
+                                    <svg viewBox="0 0 21 21">
+                                      <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                                    </svg>
+                                  </label>
+                                </div>
+                              )}
+                            </span>
+                          </div>
+                        )}
+                      </RadioGroup.Option>
+                    ))}
+                  </div>
+                </RadioGroup>
               </div>
               {/* price section*/}
 
@@ -91,25 +114,27 @@ function OneStep({ next, prev, handleChange }) {
                   Price:
                 </label>
 
-                <div className=" rounded-md shadow-sm">
-                  <div className="flex">
+                <div className=" rounded-md ">
+                  <div className="flex mt-2 ring-1 ring-inset  ring-gray-400 focus:ring-indigo-600 rounded-md">
                     <select
                       name=""
                       id=""
-                      className="text-center   ring-1 ring-inset ring-gray-300 shadow-sm mt-2 h-12 inline-flex items-center rounded-l-md border-0 border-r-0  px-3 text-gray-500 sm:text-sm"
+                      className="px-5  block w-[10%]   border-l-1 py-1.5 text-gray-900   placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 h-14"
                     >
                       <option value="GHC" className="text-center">
                         GHC
                       </option>
-                      <option value="USD">USD</option>
+                      <option value="USD" className="text-center">
+                        USD
+                      </option>
                     </select>
 
-                    <div className="relative mt-2 w-full">
+                    <div className="relative  w-full">
                       <input
                         // prefix={currencypref ? "$" : "₵"}
                         type="number"
                         // className="border px-5 py-4  w-full  h-12 "
-                        className="h-12 px-5 w-full border-l-0 rounded-r-md  block   border-0 py-1.5 text-gray-900  ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        className=" px-5  block w-full rounded-r-md border-0 py-1.5 text-gray-900  ring-1 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 h-14"
                         name="price"
                         placeholder="Please enter a number"
                         defaultValue={1000}
@@ -142,7 +167,7 @@ function OneStep({ next, prev, handleChange }) {
                   onChange={(e) => handleChange(e)}
                   name="advance"
                   id="advance"
-                  className="dropdown  border-0 ring-1 ring-inset ring-gray-300 mt-2 h-12 w-full rounded-md  bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                  className=" px-5 mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900  ring-1 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 h-14"
                 >
                   <option className="" value="1 Month">
                     1 Month
@@ -158,10 +183,10 @@ function OneStep({ next, prev, handleChange }) {
             </div>
           </div>
         </form>
-        <div className="mt-10 w-full flex justify-between">
+        <div className=" w-full flex justify-between  absolute bottom-0">
           <button
             onClick={prev()}
-            class="inline-flex items-center px-6 py-3 text-gray-500 border-gray-300 bg-gray-200 border font-semibold  rounded-md shadow-sm"
+            class="inline-flex items-center px-6 py-3  text-gray-500 border-gray-300 bg-gray-200 border font-semibold  rounded-md shadow-sm"
           >
             <svg class="mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 22 22">
               <path
@@ -174,7 +199,7 @@ function OneStep({ next, prev, handleChange }) {
           </button>
           <button
             onClick={next()}
-            class="inline-flex items-center  px-6 py-3 text-white font-semibold bg-blue-700 rounded-md shadow-sm"
+            class="inline-flex items-center  px-6 py-3 text-white font-semibold bg-blue-700 rounded-md shadow-sm "
           >
             <span>Next</span>
             <svg class="ml-3 w-5 h-5" fill="currentColor" viewBox="0 0 22 22">

@@ -6,6 +6,7 @@ export { default as Dashboard } from "./dashboard/Dashboard";
 export { default as DashboardRoutes } from "./dashboard/DashboardRoutes";
 export { default as Notfound } from "./404/Notfound";
 export { default as Trylog } from "./Auth/Trylog";
+export { default as Dashlayout } from "./Dashlayout/Dashlayout";
 
 // dashboard links
 export { default as Profile } from "./profiles/Profile";

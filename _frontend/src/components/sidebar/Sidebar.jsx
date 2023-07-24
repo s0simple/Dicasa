@@ -40,7 +40,7 @@ const Sidebar_items = (props) => {
           {props.dropdown ? (
             <button
               onClick={toggledrop}
-              className=" items-center mr-2 px-2 h-full  "
+              className=" items-center mr-2 px-2 h-full "
             >
               {showdrop ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
             </button>

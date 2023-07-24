@@ -23,7 +23,7 @@ const Container = styled.div`
   border-radius: 10px;
   border-color: ${(props) => getColor(props)};
   border-style: dashed;
-  background-color: #fafafa;
+  background-color: transparent;
   color: black;
   font-weight: bold;
   font-size: 1.4rem;
@@ -95,7 +95,7 @@ function DropBox({ onDrop }) {
           />
           <button
             type="button"
-            className="w-64 flex flex-col  items-center text-blue-500 px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide  border border-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white"
+            className="w-64 flex flex-col  items-center text-blue-500 px-4 py-6  rounded-lg shadow-lg tracking-wide  border border-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white"
             onClick={open}
           >
             <svg
