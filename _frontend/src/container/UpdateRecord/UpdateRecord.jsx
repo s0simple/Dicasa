@@ -23,18 +23,18 @@ const UpdateRecord = ({
     console.log(newData);
   };
 
-  const { _id,first_name, last_name, age, dateOfBirth } = newData;
+  const { _id, first_name, last_name, age, dateOfBirth } = newData;
 
   const handleRefresh = () => {
     onclosState(false);
     toast();
   };
 
-  const handleUpdateSubmit =  (e) => {
+  const handleUpdateSubmit = (e) => {
     e.preventDefault();
 
-     axios.put(`http://localhost:5000/api/${_id}`,newData)
-    
+    axios.put(`http://localhost:5000/api/${_id}`, newData);
+
     // const index = allInputs.map((object) => object.id).indexOf(newData.id);
     // allInputs[index] = newData;
 
@@ -42,7 +42,7 @@ const UpdateRecord = ({
 
     handleRefresh();
 
-    axios.put()
+    axios.put();
   };
 
   return (
@@ -153,7 +153,7 @@ const UpdateRecord = ({
                               type="Date"
                               name="dateOfBirth"
                               id=""
-                              value={dateOfBirth }
+                              value={dateOfBirth}
                               onChange={handleUpdateChange}
                             />
                           </label>

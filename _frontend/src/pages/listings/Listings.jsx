@@ -66,7 +66,7 @@ const Listings = () => {
       alert("nothing to submit");
     } else {
       axios
-        .post("http://localhost:5000/api/", Inputs)
+        .post("http://localhost:5000/listings/", Inputs)
         .then((response) => console.log(response))
         .catch((err) => console.log(err));
       //fetchData.unshift(Inputs);
@@ -82,12 +82,12 @@ const Listings = () => {
     //   return item._id === id;
     // });
 
-    let newdata = await axios.get(`http://localhost:5000/api/members/${id}`);
-
+    let newdata = await axios.get(`http://localhost:5000/listings/${id}`);
+    console.log(newdata);
     //setUpdateId(id);
 
     setshowUpdate(true);
-    setUpdateData(() => newdata.data.users);
+    setUpdateData(() => newdata.data.response);
 
     console.log(`your uppp ${newdata.data.users}`);
   };
@@ -148,7 +148,7 @@ const Listings = () => {
             alt="avater"
             className="h-20 w-28 rounded"
           />
-          {console.log(data.photo_main)}
+          {console.log(data._id)}
         </td>
         <th className="text-gray-500   py-4 px-6 text-sm whitespace-nowrap hover:text-blue-500">
           <span className="font-medium">{capitalizeEachWord(data.name)}</span>
@@ -164,6 +164,7 @@ const Listings = () => {
         {/* <th className=" text-gray-500 font-medium py-4 px-6 text-sm ">
           {data.last_name}
         </th> */}
+
         <td className="text-sm text-gray-500 font-medium px-6 py-4 whitespace-nowrap ">
           {/* {price(data.price)} */}
           {data.offer == "rent" ? price(data.price) + "/Mo" : price(data.price)}
@@ -205,9 +206,8 @@ const Listings = () => {
                   <div className="py-1">
                     <Menu.Item>
                       {({ active }) => (
-                        <a
+                        <div
                           onClick={() => handleClickUpdate(data._id)}
-                          href="#"
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
@@ -221,7 +221,7 @@ const Listings = () => {
                             </span>
                             <span>Edit</span>
                           </div>
-                        </a>
+                        </div>
                       )}
                     </Menu.Item>
                   </div>
@@ -322,7 +322,7 @@ const Listings = () => {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-1 w-2xl  gap-6  w-2xl container    mx-auto">
           <article className="">
-            <div className="bg-white shadow rounded-lg mb-6 p-4">
+            <div className="bg-color rounded-lg mb-6 p-4">
               <Possibility data={tableData()} head={tableHead()} />
             </div>
           </article>

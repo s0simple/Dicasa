@@ -54,7 +54,7 @@ function Cardblock() {
 
         <Searchform />
       </div> */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ">
         {fetchData.map((data) => {
           return (
             <Link key={data._id} to={`/dashboard/singlepage/${data._id}`}>
@@ -73,46 +73,14 @@ function Cardblock() {
                       <div className="cardlocation text-sm">
                         <span className="flex gap-1 items-center text-gray-500">
                           <span>
-                            {/* <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke-width="1.5"
-                              stroke="currentColor"
-                              class="w-6 h-6"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-                              />
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-                              />
-                            </svg> */}
-                            {/* <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="32px"
-                              height="32px"
-                              viewBox="0 0 24 24"
-                              className="h-5 w-5"
-                            >
-                              <g>
-                                <path d="M12,21.933a1.715,1.715,0,0,1-1.384-.691L5.555,14.5a7.894,7.894,0,1,1,12.885-.009L13.385,21.24A1.717,1.717,0,0,1,12,21.933ZM11.992,3.066A6.81,6.81,0,0,0,7.414,4.815a6.891,6.891,0,0,0-1.05,9.1l5.051,6.727a.725.725,0,0,0,.584.292h0a.732.732,0,0,0,.586-.292l5.044-6.734A6.874,6.874,0,0,0,12.81,3.113,7.277,7.277,0,0,0,11.992,3.066Z" />
-                                <path d="M12,12.5A2.5,2.5,0,1,1,14.5,10,2.5,2.5,0,0,1,12,12.5Zm0-4A1.5,1.5,0,1,0,13.5,10,1.5,1.5,0,0,0,12,8.5Z" />
-                              </g>
-                            </svg> */}
-
                             <IoLocationOutline size={16} />
                           </span>{" "}
-                          <p>
+                          <p className="text-sm">
                             {data.city} {data.town} {data.region}
                           </p>
                         </span>
                       </div>
-                      <div className="cardtitle font-semibold  text-gray-800 text-lg ">
+                      <div className="cardtitle font-semibold  text-gray-800 text-sm ">
                         {data.name}
                       </div>
                     </div>

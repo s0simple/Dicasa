@@ -3,7 +3,7 @@ import React from "react";
 const Searchform = () => {
   return (
     <div>
-      <form action="flex">
+      <form action="flex border">
         <div className="flex items-center">
           {/* Search */}
           <div className=" flex justify-start items-center py-4 w-full relative">

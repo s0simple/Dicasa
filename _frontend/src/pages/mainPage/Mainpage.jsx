@@ -27,8 +27,8 @@ const Mainpage = () => {
 
   console.log(filter);
   return (
-    <div className="flex gap-x-5">
-      <div className="w-1/4 hidden md:block">
+    <div className="flex gap-x-5 mt-5">
+      <div className="w-1/5 hidden md:block">
         <div className="shadow rounded-lg mb-10 px-4 bg-white w-full p-4 ">
           <p className="font-bold text-lg ">Filter</p>{" "}
           <div className="mt-8">
@@ -75,9 +75,9 @@ const Mainpage = () => {
         </div>
       </div>
 
-      <div className="w-full md:w-3/4">
+      <div className="w-full md:w-4/5">
         <div>
-          <div className="shadow rounded-lg mb-10 px-4 bg-white">
+          <div className=" rounded-lg mb-5 px-4 ">
             <Searchform />
           </div>
 
