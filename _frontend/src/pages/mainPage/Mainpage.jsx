@@ -17,6 +17,30 @@ const Mainpage = () => {
   const [selectcategory, setselectcategory] = useState(category[0]);
   const [selectbedroom, setselectbedroom] = useState(bedrooms[0]);
   const [selectpeople, setselectpeople] = useState(people[0]);
+  const [showlist, setshowlist] = useState(false);
+
+  const [fetchData, setfetchData] = useState([]);
+  const [IsLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get("http://localhost:5000/listings")
+        .then((fetch) => {
+          setfetchData(() => fetch.data.Proplist);
+          setIsLoading(false);
+          console.log({ data: fetch.data.reposnse });
+        })
+        .catch((err) => console.log(err));
+    };
+
+    fetchData();
+  }, []);
+
+  // const searchinput = async (e) => {
+  //   e.preventDefault();
+  //   await axios.get(`http://localhost:5000/listings`);
+  // };
 
   const filter = [
     { Offer: selectOffer.name },
@@ -25,11 +49,11 @@ const Mainpage = () => {
     { people: selectpeople.name },
   ];
 
-  console.log(filter);
+  // console.log({ data: fetchData });
   return (
     <div className="flex gap-x-5 mt-5">
       <div className="w-1/5 hidden md:block">
-        <div className="shadow rounded-lg mb-10 px-4 bg-white w-full p-4 ">
+        <div className=" rounded-lg mb-10 px-4  w-full p-4 ">
           <p className="font-bold text-lg ">Filter</p>{" "}
           <div className="mt-8">
             Offers:
@@ -67,7 +91,7 @@ const Mainpage = () => {
             {" "}
             <button
               type=""
-              class="bg-slate-900 hover:bg-slate-700 w-full py-4 text-center my-6 text-white"
+              class="bg-slate-800 rounded-lg hover:bg-slate-700 w-full py-4 text-center mt-10 text-white"
             >
               Search
             </button>
@@ -77,12 +101,46 @@ const Mainpage = () => {
 
       <div className="w-full md:w-4/5">
         <div>
-          <div className=" rounded-lg mb-5 px-4 ">
-            <Searchform />
+          <div className=" rounded-lg mb-5  p-3 ring-1 ring-inset ring-gray-400">
+            <div className="flex w-full gap-2">
+              <div className="w-full">
+                <Searchform fetchData={fetchData} />
+              </div>
+              <div className="flex gap-2 ">
+                <button
+                  onClick={() => setshowlist(true)}
+                  className={
+                    showlist
+                      ? "ring-1 hover:ring-slate-400 ring-slate-900 text-xl leading-none bg-black text-slate-300 hover:text-slate-400 px-2 h-full  w-full rounded"
+                      : "ring-1 hover:ring-slate-400 ring-slate-900 text-xl leading-none  text-slate-900 hover:text-slate-400 px-2 h-full  w-full rounded"
+                  }
+                >
+                  <i class="bx bx-list-ul text-semibold"></i>
+                </button>
+                <button
+                  onClick={() => setshowlist(false)}
+                  className={
+                    !showlist
+                      ? "ring-1 hover:ring-slate-400 ring-slate-900 text-xl leading-none bg-black text-slate-300 hover:text-slate-400 px-2 h-full  w-full rounded"
+                      : "ring-1 hover:ring-slate-400 ring-slate-900 text-xl leading-none  text-slate-900 hover:text-slate-400 px-2 h-full  w-full rounded"
+                  }
+                >
+                  <i class="bx bx-grid-alt text-semibold"></i>
+                </button>
+                <button className="ring-1 hover:ring-slate-400 ring-slate-900 text-xl leading-none  text-slate-900 hover:text-slate-400 px-2 h-full  w-full rounded">
+                  <i class="bx bx-sort-alt-2 text-semibold"></i>
+                </button>
+              </div>
+            </div>
           </div>
 
-          {/* <Cardlist /> */}
-          <Cardblock />
+          {showlist ? (
+            <Cardlist />
+          ) : (
+            <Cardblock IsLoading={IsLoading} Data={fetchData} />
+          )}
+          {/* <Cardblock /> */}
+
           <div>
             {/* <div class="max-w-3xl px-10 my-4 py-6 bg-white rounded-lg shadow-md">
           <div class="flex justify-between items-center">

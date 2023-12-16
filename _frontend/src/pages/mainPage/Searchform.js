@@ -6,9 +6,9 @@ const Searchform = () => {
       <form action="flex border">
         <div className="flex items-center">
           {/* Search */}
-          <div className=" flex justify-start items-center py-4 w-full relative">
+          <div className=" flex justify-start items-center  w-full relative">
             <input
-              className="text-sm leading-none text-left text-gray-600 px-4 py-3 w-full border rounded border-gray-300  outline-none"
+              className="ring-1 ring-slate-900 text-sm leading-none text-left  text-gray-600 px-4 py-2 w-full rounded"
               type="text"
               placeholder="Search"
             />

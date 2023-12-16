@@ -14,6 +14,10 @@ import { Menu, Transition } from "@headlessui/react";
 import Cards from "../../components/cards/Cards";
 import { Loader } from "../../components";
 import TimeAgo from "timeago-react";
+import Pagination from "./Pagination";
+import Sort from "./Sort";
+import Search from "./Search";
+import PropsTypes from "./Category";
 
 const Listings = () => {
   const [Inputs, setInputs] = useState("");
@@ -25,11 +29,22 @@ const Listings = () => {
   const [DisplayData, setDisplayData] = useState({});
   const [fetchData, setfetchData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchValue, setSearchValue] = useState("")
+
+  //  states for (search,filter, pagination and sort)
+
+  const [obj, setObj] = useState({})
+  const [sort, setSort] = useState({ sort: "rating", order: "desc" })
+  const [filterCategory, setFilterCategory] = useState([])
+  const [page, setPage] = useState(1)
+  const [search, setSearch] = useState("")
 
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("item"));
 
-  //console.log(token)
+  const base_url = process.env.REACT_APP_API_URL
+
+  // console.log(base_url)
 
   const headers = {
     "Content-Type": "application/json",
@@ -39,17 +54,41 @@ const Listings = () => {
   useEffect(() => {
     const fetchData = async () => {
       await axios
-        .get("http://localhost:5000/listings")
+        // .get("http://localhost:5000/listings")
+        .get(`${base_url}/listings?page=${page}&sort=${sort.sort},${sort.order}&categories=${filterCategory.toString()}&search=${search}`)
         .then((fetch) => {
-          setfetchData(() => fetch.data.response);
-          console.log(fetch.data.response);
+          setfetchData(() => fetch.data);
+          // console.log(fetch.data.response);
           setIsLoading(false);
         })
-        .catch(() => navigate("/"));
+        // .catch(() => navigate("/"));
+        .catch((err) => console.log(err.massage))
     };
 
     fetchData();
-  }, []);
+  }, [sort, filterCategory, page, search]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await axios
+  //       // .get("http://localhost:5000/listings")
+  //       .get(`${base_url}/listings`)
+  //       .then((fetch) => {
+  //         setfetchData(() => fetch.data.response);
+  //         // console.log(fetch.data.response);
+  //         setIsLoading(false);
+  //       })
+  //       // .catch(() => navigate("/"));
+  //       .catch((err) => console.log(err.massage))
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  const searchinput = async (e) => {
+    e.preventDefault();
+    await axios.get(`http://localhost:5000/listings/?=${searchValue}`);
+  };
 
   const data = JSON.parse(localStorage.getItem("items"));
   const AllInputs = JSON.parse(localStorage.getItem("items")) || [];
@@ -83,13 +122,13 @@ const Listings = () => {
     // });
 
     let newdata = await axios.get(`http://localhost:5000/listings/${id}`);
-    console.log(newdata);
+    // console.log(newdata);
     //setUpdateId(id);
 
     setshowUpdate(true);
     setUpdateData(() => newdata.data.response);
 
-    console.log(`your uppp ${newdata.data.users}`);
+    // console.log(`your uppp ${newdata.data.users}`);
   };
 
   const handleClickAdd = async () => {
@@ -107,7 +146,7 @@ const Listings = () => {
   };
 
   const handleClickDelete = (id) => {
-    console.log(id);
+    // console.log(id);
     setDeleteId(id);
     setshowModal(true);
   };
@@ -134,9 +173,9 @@ const Listings = () => {
   };
 
   const tableData = () => {
-    const something = fetchData.map((data) => (
+    const something = fetchData.Proplist.map((data) => (
       <tr
-        className="cursor-pointer border-b border-slate-200 transition duration-300 ease-in-out "
+        className="cursor-pointer border-b border-slate-300 transition duration-300 ease-in-out "
         key={data._id}
       >
         <td className="text-sm text-gray-500 font-normalnormal px-6 py-4 whitespace-nowrap ">
@@ -148,15 +187,17 @@ const Listings = () => {
             alt="avater"
             className="h-20 w-28 rounded"
           />
-          {console.log(data._id)}
+          {/* {console.log(data._id)} */}
         </td>
-        <th className="text-gray-500   py-4 px-6 text-sm whitespace-nowrap hover:text-blue-500">
-          <span className="font-medium">{capitalizeEachWord(data.name)}</span>
-          <div className="flex gap-x-2 font-normal">
-            <span>
+        <th className="text-gray-500   py-4 px-6 text-sm whitespace-nowrap hover:text-indigo-700">
+          <span className="font-medium text-gray-900">
+            {capitalizeEachWord(data.name)}
+          </span>
+          <div className="flex gap-x-2 ">
+            <span className="font-normal">
               <p>Bed: {data.beds} </p>
             </span>{" "}
-            <span>
+            <span className="font-normal">
               <p>Bath: {data.bath}</p>
             </span>
           </div>
@@ -165,9 +206,11 @@ const Listings = () => {
           {data.last_name}
         </th> */}
 
-        <td className="text-sm text-gray-500 font-medium px-6 py-4 whitespace-nowrap ">
+        <td className="text-sm text-indigo-700 font-medium px-6 py-4 whitespace-nowrap ">
           {/* {price(data.price)} */}
-          {data.offer == "rent" ? price(data.price) + "/Mo" : price(data.price)}
+          {data.offer == "Rent"
+            ? data.price && `${price(data.price)} /Mo`
+            : data.price && price(data.price)}
         </td>
         <td className="text-sm text-gray-500 font-normal py-4 px-6 whitespace-nowrap">
           {capitalizeEachWord(data.offer)}
@@ -188,7 +231,7 @@ const Listings = () => {
 
             <Menu as="div" className="relative inline-block text-left">
               <div>
-                <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-400 shadow-sm  ring-inset ring-gray-300 hover:bg-gray-50">
+                <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md  px-3 py-2 text-sm font-semibold text-gray-400 shadow-sm  ring-inset ring-gray-300 hover:bg-gray-50">
                   <GrMore />
                 </Menu.Button>
               </div>
@@ -202,7 +245,7 @@ const Listings = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md  shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
                     <Menu.Item>
                       {({ active }) => (
@@ -262,7 +305,7 @@ const Listings = () => {
 
   const tableHead = () => {
     return (
-      <tr className="text-gray-500  bg-color">
+      <tr className="text-gray-900 border-b border-slate-300 ">
         <th className="text-sm font-medium  px-6 py-4 "> #Code </th>
         <th className="text-sm font-medium  px-6 py-4 "> Image </th>
 
@@ -311,7 +354,7 @@ const Listings = () => {
   return (
     <>
       <div className="">
-        <div className="bg-white shadow rounded-lg mb-10 p-4  ">
+        <div className=" shadow rounded-lg mb-10 p-4  ">
           {/* <Header /> */}
 
           <span className=" font-medium text-gray-500 text-sm">
@@ -320,13 +363,29 @@ const Listings = () => {
 
           <Cards addmodel={() => handleClickAdd()} />
         </div>
+        <div className="flex gap-2 justify-between items-center mx-2">
+
+          <Search search={search} setSearch={(prev) => setSearch(prev)} />
+          <div className="flex gap-10 items-center">
+            <PropsTypes PropTypes={fetchData.categories ? fetchData.categories : []} filterCategory={filterCategory} setFilterCategory={(prev) => (setFilterCategory(prev))} />
+
+            <Sort sort={sort} setSort={(sort) => setSort(sort)} />
+          </div>
+
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-1 w-2xl  gap-6  w-2xl container    mx-auto">
           <article className="">
-            <div className="bg-color rounded-lg mb-6 p-4">
-              <Possibility data={tableData()} head={tableHead()} />
+            <div className=" rounded-lg mb-2 p-4">
+              <Possibility data={tableData()} head={tableHead()} setSearchValue={setSearchValue} />
             </div>
           </article>
         </div>
+
+        <div>
+          <Pagination page={page} limit={fetchData.limit ? fetchData.limit : 0} total={fetchData.total ? fetchData.total : 0} setPage={(page) => setPage(page)} />
+        </div>
+
+
       </div>
 
       <div className="">

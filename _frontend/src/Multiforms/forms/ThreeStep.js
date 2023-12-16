@@ -51,6 +51,10 @@ function ThreeStep({ next, handleChange }) {
                         onChange={(e) => handleChange(e)}
                         className="h-14 px-5 mt-2 block w-full rounded-md border-2 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
+                      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                        <span class="font-medium">Oops!</span> Username already
+                        taken!
+                      </p>
                     </div>
                   </div>
                 </div>

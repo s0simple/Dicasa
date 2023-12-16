@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
     const token = genJwt(logged_user);
 
     if (!bcrypt.compare(password, logged_user.password) || !logged_user.email) {
-      return res.send("oops! wrong password");
+      return res.send("oopsy! wrong password");
     } else {
       res.json({ token, user_name });
     }

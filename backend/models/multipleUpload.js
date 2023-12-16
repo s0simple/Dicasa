@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const MultipleFileUploadSchema = new Schema(
   {
     listing_ID: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "properties",
     },
 
     files: [Object],

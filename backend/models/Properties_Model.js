@@ -24,7 +24,12 @@ const properties_schema = new schema({
   description: { type: String },
   photo_main: { type: String },
   image_main: { type: String },
-  photo_gallary: { type: String },
+  photo_gallary: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "multiplefileuploads",
+  },
+  categories: { type: [String] },
+  rating: { type: Number },
   createdAt: {
     type: Date,
     default: Date.now,

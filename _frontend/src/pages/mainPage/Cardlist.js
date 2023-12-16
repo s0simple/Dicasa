@@ -12,7 +12,7 @@ function Cardlist() {
       await axios
         .get("http://localhost:5000/listings")
         .then((fetch) => {
-          setfetchData(() => fetch.data.response);
+          setfetchData(() => fetch.data.Proplist);
           console.log(fetch.data.response);
         })
         .catch((err) => console.log(err));
@@ -47,15 +47,15 @@ function Cardlist() {
               <div className="">
                 <div class=" ">
                   <div class="relative w-full transition duration-500">
-                    <div class=" shadow bg-white flex rounded-lg overflow-hidden  hover:shadow-xl transition duration-500 ">
+                    <div class=" shadow-sm bg-gray-100 flex rounded-lg overflow-hidden  hover:shadow-lg transition duration-500 ">
                       {/* card photo */}
 
                       <div className=" w-2/5">
                         <div className="relative flex ">
                           <div
-                            class="bg-cover bg-bottom h-80 md:h-64  w-full"
+                            class="bg-cover bg-bottom h-80 md:h-72 w-full"
                             style={{
-                              backgroundImage: `url(${data.image_main})`,
+                              backgroundImage: `url(${data.photo_main})`,
                             }}
                           ></div>
 
@@ -82,7 +82,7 @@ function Cardlist() {
                         </div>
                       </div>
                       {/* card body */}
-                      <div className=" w-3/5">
+                      <div className="relative w-3/5">
                         {/* top right corner on card */}
                         <div class="absolute top-0 right-0  mr-2 p-2 z-20 flex justify-between">
                           <div class="inline-flex items-center hover:bg-gray-300 justify-center w-8 h-8 p-2 rounded-full bg-gray-200 shadow-sm">
@@ -102,8 +102,8 @@ function Cardlist() {
                           </div>
                         </div>
                         {/* card description */}
-                        <div>
-                          <div class="p-3 md:py-4 md:px-5">
+                        <div className="">
+                          <div class="p-3 md:py-4 md:px-5 ">
                             <p class="font-bold md:text-lg">{data.name}</p>
                             <p class="text-gray-700 md:text-sm ">
                               {data.region}, {data.city}, {data.landmarks}
@@ -146,25 +146,25 @@ function Cardlist() {
                               </p>
                             </div>
                           </div>
-                          <div class="p-3 md:py-4 md:px-5 bg-gray-100 grid grid-cols-2 content-center">
-                            <div class="mt-2 text-gray-600 text-sm ">
+                          <div class="absolute bottom-0 p-3 md:py-4 w-full md:px-5  flex justify- content-center">
+                            <div class="mt-2 text-gray-600 text-sm w-full ">
                               *Prices may vary depending on selected date.
                             </div>
                             <div class="sm:flex  sm:items-center  flex justify-end ">
                               <div>
                                 <div class=" text-gray-700 md:text-sm  ">
                                   <span class="text-gray-900 font-bold md:text-lg">
-                                    {data.offer == "rent" ? (
-                                      <span>
-                                        {price(data.price)}
-                                        <span className="text-gray-700 font-normal md:text-sm">
-                                          {" "}
-                                          /Mo
-                                        </span>
-                                      </span>
-                                    ) : (
-                                      price(data.price)
-                                    )}
+                                    {data.offer === "Rent"
+                                      ? data.price && (
+                                          <div>
+                                            {" "}
+                                            {price(data.price)}
+                                            <p className="text-sm text-gray-500 font-semibold inline ml-1">
+                                              /Mo
+                                            </p>
+                                          </div>
+                                        )
+                                      : data.price && price(data.price)}
                                   </span>
                                 </div>
                               </div>

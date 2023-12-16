@@ -6,11 +6,11 @@ import DropBox from "./DropBox";
 import { Dialog, Transition } from "@headlessui/react";
 
 import { singleFileUpload, multipleFileUpload } from "../../api";
-import { Line, Circle } from "rc-progress";
+
 import { v4 as uuid } from "uuid";
 
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+// import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+// import "react-circular-progressbar/dist/styles.css";
 
 const DropImage = ({ image, idd, images, setimages, files, setFiles }) => {
   const handleClickDelete = (id) => {
@@ -241,7 +241,7 @@ function FourStep({ next, prev, step, steps, setstep, handleChange }) {
                 {/* The actual dialog panel  */}
                 <Dialog.Panel className="mx-auto max-w-sm rounded">
                   <div style={{ width: 200, height: 200 }}>
-                    <CircularProgressbar
+                    {/* <CircularProgressbar
                       value={multiPhotoProgress}
                       text={`${multiPhotoProgress}%`}
                       styles={{
@@ -283,7 +283,7 @@ function FourStep({ next, prev, step, steps, setstep, handleChange }) {
                           fill: "#00000",
                         },
                       }}
-                    />
+                    /> */}
                   </div>
                 </Dialog.Panel>
               </div>

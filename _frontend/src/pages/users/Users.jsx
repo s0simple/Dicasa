@@ -212,13 +212,13 @@ const Users = () => {
     <>
       <div className="">
         <div>{/* <Header /> */}</div>
-        <div className="grid grid-cols-1 lg:grid-cols-1 w-2xl grid grid-cols-1 lg:grid-cols-2 gap-6  w-2xl container px-2 mx-auto px-2 mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-1 w-2xl  gap-6  w-2xl container px-2 mx-auto ">
           <article className="">
             <div className="bg-white shadow rounded-lg mb-6 p-4">
               <div className="flex justify-end">
                 <button
                   onClick={() => handleClickAdd()}
-                  className=" flex space-x-2 outline-none focus:outline-none border px-3  py-2 mb-4 bg-blue-800 rounded flex items-center  text-white"
+                  className="  space-x-2 outline-none focus:outline-none border px-3  py-2 mb-4 bg-blue-800 rounded flex items-center  text-white"
                 >
                   <span className="text-white">
                     <MdOutlineAddCircleOutline size={20} />

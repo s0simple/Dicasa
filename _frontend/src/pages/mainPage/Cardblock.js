@@ -5,25 +5,26 @@ import { TbHeart } from "react-icons/tb";
 import Searchform from "./Searchform";
 import { IoLocationOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+// import { loader } from "@alaskaairux/auro-loader";
 
-function Cardblock() {
-  const [fetchData, setfetchData] = useState([]);
-  const [IsLoading, setIsLoading] = useState(true);
+function Cardblock({ IsLoading, Data }) {
+  // const [fetchData, setfetchData] = useState([]);
+  // const [IsLoading, setIsLoading] = useState(true);
+  // console.log(Data);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await axios
+  //       .get("http://localhost:5000/listings")
+  //       .then((fetch) => {
+  //         setfetchData(() => fetch.data.response);
+  //         setIsLoading(false);
+  //         console.log(fetch.data.response);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await axios
-        .get("http://localhost:5000/listings")
-        .then((fetch) => {
-          setfetchData(() => fetch.data.response);
-          setIsLoading(false);
-          console.log(fetch.data.response);
-        })
-        .catch((err) => console.log(err));
-    };
-
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const price = (item) => {
     let price = item.toLocaleString("ak-GH", {
@@ -55,23 +56,31 @@ function Cardblock() {
         <Searchform />
       </div> */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ">
-        {fetchData.map((data) => {
+        {Data.map((data) => {
           return (
             <Link key={data._id} to={`/dashboard/singlepage/${data._id}`}>
               <div className="propcard cursor-pointer">
-                <div className="propcardwrapper bg-white shadow rounded">
-                  <div className="propcardhead">
+                <div className=" propcardwrapper bg-gray-200 shadow rounded">
+                  <div className="relative propcardhead">
                     <div
-                      class="bg-cover bg-bottom h-96 rounded-t  w-full"
+                      class="bg-cover bg-bottom h-72 rounded-t  w-full"
                       style={{
                         backgroundImage: `url(${data.photo_main})`,
                       }}
                     ></div>
+                    <div class="absolute top-0 right-0 p-2 z-20 flex justify-between">
+                      <span class="py-1 px-2.5 border-none rounded bg-gray-100 text-sm text-gray-800 font-medium">
+                        {data.offer}
+                      </span>
+                    </div>
                   </div>
                   <div className="cardbodywrapper py-2 px-4">
                     <div className="propcardbody flex flex-col gap-1 ">
+                      <div className="cardtitle font-semibold text-gray-800 text-sm ">
+                        {data.name}
+                      </div>
                       <div className="cardlocation text-sm">
-                        <span className="flex gap-1 items-center text-gray-500">
+                        <span className="flex gap-1 items-center  text-gray-500">
                           <span>
                             <IoLocationOutline size={16} />
                           </span>{" "}
@@ -80,14 +89,11 @@ function Cardblock() {
                           </p>
                         </span>
                       </div>
-                      <div className="cardtitle font-semibold  text-gray-800 text-sm ">
-                        {data.name}
-                      </div>
                     </div>
                     {/* <hr className="my-2" /> */}
                     <div className="propcardfooter flex justify-between items-center mt-2">
                       <div className="realicons ">
-                        <div className="flex space-x-8 ">
+                        <div className="flex space-x-4 ">
                           <span className="flex items-center font-medium gap-2  md:text-sm">
                             <div className="rounded-sm">
                               {" "}
@@ -105,7 +111,7 @@ function Cardblock() {
                             </p>
                           </span>
 
-                          <span className="flex items-center gap-2 font-medium md:text-sm">
+                          <span className="flex items-center gap-1  font-medium md:text-sm">
                             <div className=" rounded-sm">
                               <svg
                                 className="w-5 h-5 fill-current text-gray-500 "
@@ -121,7 +127,21 @@ function Cardblock() {
                         </div>
                       </div>
                       <div className="price font-semibold text-2xl">
-                        {data.price}
+                        <div class=" text-gray-700 md:text-sm  ">
+                          <span class="text-gray-900 font-bold md:text-lg">
+                            {data.offer === "Rent"
+                              ? data.price && (
+                                  <div>
+                                    {" "}
+                                    {price(data.price)}
+                                    <p className="text-gray-500 text-sm font-semibold inline ml-1">
+                                      /Mo
+                                    </p>
+                                  </div>
+                                )
+                              : data.price && price(data.price)}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>

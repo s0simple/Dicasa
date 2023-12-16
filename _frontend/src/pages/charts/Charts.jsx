@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Loader } from "../../components";
 import "./charts.css";
 import { singleFileUpload, multipleFileUpload } from "../../api";
-import { Progress } from "react-sweet-progress";
-import "react-sweet-progress/lib/style.css";
-import { Line, Circle } from "rc-progress";
+// import { Progress } from "react-sweet-progress";
+// import "react-sweet-progress/lib/style.css";
+// import { Line, Circle } from "rc-progress";
 
 function Charts() {
   const [singleFile, setsingleFile] = useState("");
@@ -111,11 +111,11 @@ function Charts() {
             {showprogress && (
               <div className="mt-5">
                 {/* <Progress percent={photoprogress} strokeWidth={1} /> */}
-                <Line
+                {/* <Line
                   percent={photoprogress}
                   strokeWidth={1}
                   strokeColor="#0577e3"
-                />{" "}
+                />{" "} */}
                 <p>loading...</p>
               </div>
             )}

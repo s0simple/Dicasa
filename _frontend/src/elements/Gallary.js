@@ -36,7 +36,7 @@ const Gallery = ({ images }) => {
         {images.map((data, index) => (
           <SwiperSlide key={index}>
             <img
-              className="w-full max-h-full"
+              className="w-full h-full"
               src={`http://localhost:5000/${data.filePath}`}
               alt=""
             />
@@ -66,11 +66,7 @@ const Gallery = ({ images }) => {
       >
         {images.map((item, index) => (
           <SwiperSlide key={index}>
-            <img
-              className="w-full max-h-full"
-              src={item.cloudinaryURL}
-              alt=""
-            />
+            <img className="w-full h-full" src={item.cloudinaryURL} alt="" />
           </SwiperSlide>
         ))}
         {/* <SwiperSlide>something</SwiperSlide> */}

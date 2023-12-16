@@ -16,7 +16,7 @@ const filefilter = (req, file, cb) => {
     file.mimetype === "image/jpg" ||
     file.mimetype === "image/jpeg"
   ) {
-    cb(null, true);
+    cb(null, true);  
   } else {
     cb(null, false);
   }

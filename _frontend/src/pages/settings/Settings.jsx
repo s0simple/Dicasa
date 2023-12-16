@@ -19,12 +19,14 @@ function Settings() {
     //     </div>
     //   </div>
     // </div>
-    <div class="w-full flex flex-col overflow-hidden  h-screen justify-center items-center ">
-      <div className="relative">
-        <div class="w-20 h-20 border-blue-200 border-2 rounded-full"></div>
-        <div class="w-20 h-20 border-blue-500 border-t-2 animate-spin rounded-full absolute left-0 top-0"></div>
-      </div>
-    </div>
+    // <div class="w-full flex flex-col overflow-hidden  h-screen justify-center items-center ">
+    //   <div className="relative">
+    //     <div class="w-20 h-20 border-blue-200 border-2 rounded-full"></div>
+    //     <div class="w-20 h-20 border-blue-500 border-t-2 animate-spin rounded-full absolute left-0 top-0"></div>
+    //   </div>
+    // </div>
+
+    <span className="loading loading-spinner loading-lg"></span>
   );
 }
 

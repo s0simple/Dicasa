@@ -95,9 +95,9 @@ const Dashlayout = () => {
           </div>
         </ul>
       </div>
-      <section class="home-section h-screen ">
-        <div className="border relative h-full ">
-          <div class="home-content">
+      <section class="home-section ">
+        <div className="border relative  ">
+          <div class="home-content  ">
             <i onClick={() => setIsOpen(!isOpen)} class="bx bx-menu"></i>
             <span class="text">Drop Down Sidebar</span>
           </div>

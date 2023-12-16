@@ -11,6 +11,8 @@ import {
 import axios from "axios";
 import { v4 as uuid } from "uuid";
 
+let base_url = process.env.REACT_APP_API_URL
+
 export const Mformcontext = createContext();
 
 function Payload() {
@@ -127,7 +129,7 @@ function Payload() {
     console.log(propInput);
 
     await axios
-      .post("http://localhost:5000/listings", propInput)
+      .post(`${base_url}/listings`, propInput)
       .then((response) =>
         localStorage.setItem(
           "Listings_ID",
@@ -174,7 +176,7 @@ function Payload() {
           </div>
         </div>
 
-        <div>{stepper()}</div>
+        <div className="h-screen">{stepper()}</div>
       </div>
     </Mformcontext.Provider>
   );
