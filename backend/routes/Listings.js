@@ -104,6 +104,12 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: true, massage: "Internal Server Error" });
   }
 });
+// get ALL listings
+router.get("/list/", async (req, res) => {
+  await Listings.find()
+    .then((response) => res.json({ response }))
+    .catch((e) => res.json({ msg: e.message }));
+});
 
 // get ONE property
 router.get("/:id", async (req, res) => {

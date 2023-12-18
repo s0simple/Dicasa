@@ -10,9 +10,9 @@ function Cardlist() {
   useEffect(() => {
     const fetchData = async () => {
       await axios
-        .get("http://localhost:5000/listings")
+        .get("http://localhost:5000/listings/list/")
         .then((fetch) => {
-          setfetchData(() => fetch.data.Proplist);
+          setfetchData(() => fetch.data.response);
           console.log(fetch.data.response);
         })
         .catch((err) => console.log(err));

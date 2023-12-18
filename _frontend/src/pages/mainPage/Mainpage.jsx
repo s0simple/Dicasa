@@ -25,11 +25,11 @@ const Mainpage = () => {
   useEffect(() => {
     const fetchData = async () => {
       await axios
-        .get("http://localhost:5000/listings")
+        .get("http://localhost:5000/listings/list/")
         .then((fetch) => {
-          setfetchData(() => fetch.data.Proplist);
+          setfetchData(() => fetch.data.response);
           setIsLoading(false);
-          console.log({ data: fetch.data.reposnse });
+          console.log({ data: fetch.data.response });
         })
         .catch((err) => console.log(err));
     };
@@ -135,7 +135,7 @@ const Mainpage = () => {
           </div>
 
           {showlist ? (
-            <Cardlist />
+            <Cardlist IsLoading={IsLoading} Data={fetchData} />
           ) : (
             <Cardblock IsLoading={IsLoading} Data={fetchData} />
           )}
